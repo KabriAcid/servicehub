@@ -5,7 +5,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <aside class="sidebar">
     <nav>
         <div class="header">
-            <a href="dashboard.php"><span class="focus"><img src="../../favicon.png" alt="favicon" width="50px" height="50px"></span><span class="unfocus">Family Tree</span></a>
+            <a href="dashboard.php">
+                <span class="focus">
+                    <img src="../../favicon.png" alt="favicon" width="50px" height="50px">
+                </span>
+                <span class="unfocus">ServiceHub</span>
+            </a>
         </div>
         <div class="separator-wrapper">
             <hr class="separator" />
@@ -22,9 +27,16 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <ul class="items">
                     <li class="item <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>">
                         <a href="dashboard.php">
-                            <i class="fa-solid fa-sitemap"></i>
-                            <span class="item-text">ServiceHub</span>
-                            <span class="item-tooltip">ServiceHub</span>
+                            <i class="fa-solid fa-table-columns"></i>
+                            <span class="item-text">Dashboard</span>
+                            <span class="item-tooltip">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="item <?php echo ($current_page == 'services.php') ? 'active' : ''; ?>">
+                        <a href="services.php">
+                            <i class="fa-solid fa-concierge-bell"></i>
+                            <span class="item-text">Services</span>
+                            <span class="item-tooltip">Services</span>
                         </a>
                     </li>
                     <li class="item <?php echo ($current_page == 'profile.php') ? 'active' : ''; ?>">
@@ -34,31 +46,31 @@ $current_page = basename($_SERVER['PHP_SELF']);
                             <span class="item-tooltip">Profile</span>
                         </a>
                     </li>
-                    <li class="item <?php echo ($current_page == 'members.php') ? 'active' : ''; ?>">
-                        <a href="members.php">
+                    <li class="item <?php echo ($current_page == 'clients.php') ? 'active' : ''; ?>">
+                        <a href="clients.php">
                             <i class="fa-solid fa-users"></i>
-                            <span class="item-text">Members</span>
-                            <span class="item-tooltip">Members</span>
+                            <span class="item-text">Clients</span>
+                            <span class="item-tooltip">Clients</span>
                         </a>
                     </li>
                     <?php
                     if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin') {
                     ?>
-                        <li class="item <?php echo ($current_page == 'add_member.php') ? 'active' : ''; ?>">
-                            <a href="add_member.php">
-                                <i class="fa-solid fa-user-plus"></i>
-                                <span class="item-text">Add Member</span>
-                                <span class="item-tooltip">Add Member</span>
+                        <li class="item <?php echo ($current_page == 'add_service.php') ? 'active' : ''; ?>">
+                            <a href="add_service.php">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="item-text">Add Service</span>
+                                <span class="item-tooltip">Add Service</span>
                             </a>
                         </li>
                     <?php
                     }
                     ?>
-                    <li class="item <?php echo ($current_page == 'events.php') ? 'active' : ''; ?>">
-                        <a href="events.php">
+                    <li class="item <?php echo ($current_page == 'appointments.php') ? 'active' : ''; ?>">
+                        <a href="appointments.php">
                             <i class="fa-solid fa-calendar-alt"></i>
-                            <span class="item-text">Events</span>
-                            <span class="item-tooltip">Events</span>
+                            <span class="item-text">Appointments</span>
+                            <span class="item-tooltip">Appointments</span>
                         </a>
                     </li>
                 </ul>
