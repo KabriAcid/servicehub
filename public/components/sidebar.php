@@ -5,7 +5,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <aside class="sidebar">
     <nav>
         <div class="header">
-            <a href="dashboard.php"><span class="focus"><img src="../favicon.png" alt="favicon" width="50px" height="50px"></span><span class="unfocus">Family Tree</span></a>
+            <a href="dashboard.php"><span class="focus"><img src="../../favicon.png" alt="favicon" width="50px" height="50px"></span><span class="unfocus">Family Tree</span></a>
         </div>
         <div class="separator-wrapper">
             <hr class="separator" />
@@ -23,8 +23,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <li class="item <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>">
                         <a href="dashboard.php">
                             <i class="fa-solid fa-sitemap"></i>
-                            <span class="item-text">Family Tree</span>
-                            <span class="item-tooltip">Tree</span>
+                            <span class="item-text">ServiceHub</span>
+                            <span class="item-tooltip">ServiceHub</span>
                         </a>
                     </li>
                     <li class="item <?php echo ($current_page == 'profile.php') ? 'active' : ''; ?>">
