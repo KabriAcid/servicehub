@@ -26,18 +26,16 @@ function set_title(string $title = 'ServiceHub')
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <!-- <script src="../assets/js/lottie-player.js"></script> -->
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
+
     <!-- Toasted JS for notifications -->
     <link rel="stylesheet" href="../assets/css/toasted.css" />
     <script src="../assets/js/toasted.js"></script>
 
 
-    <link rel="stylesheet" href="../assets/css/soft-design-system-pro.min3f71.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="public/assets/css/soft-design-system-pro.min3f71.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
 
 </head>
-
-<body>
-
-</body>
-
-</html>
