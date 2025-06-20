@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $user['id'];
 
         // Redirect to dashboard or homepage
-        header("Location: ../index.php?success=Login+successful");
+        header("Location: ../public/backend/dashboard.php?success=Login+successful");
         exit;
     } else {
         header("Location: ../login.php?error=Invalid+email+or+password");
