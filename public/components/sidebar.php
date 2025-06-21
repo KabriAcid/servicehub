@@ -19,7 +19,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <i class="fa-solid fa-angle-left"></i>
             </label>
         </div>
-        <div class="navigation">
+        <div class="navigations">
             <div class="section main-section">
                 <div class="title-wrapper">
                     <span class="title">Main</span>
