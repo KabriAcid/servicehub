@@ -14,12 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Basic validation
     if (!$email || !$password) {
-        header("Location: ../login.php?error=Please+fill+all+fields");
+        echo 'Fields are required.';
+        header("Location: ../login.php");
         exit;
     }
 
     // Fetch user by email
-    $stmt = $pdo->prepare("SELECT id, name, email, password, role, verified FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
@@ -28,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $user['id'];
 
         // Redirect to dashboard or homepage
-        header("Location: ../public/backend/dashboard.php?success=Login+successful");
+        header("Location: ../public/backend/dashboard.php");
         exit;
     } else {
-        header("Location: ../login.php?error=Invalid+email+or+password");
+        echo "Invalid email or password";
         exit;
     }
 } else {

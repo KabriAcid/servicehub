@@ -1,15 +1,10 @@
 :root {
   /* === Core Brand Colors (Your Deep Purples) === */
-  --russian-violet: #3a015c;
-  --palatinate: #4f0147;
+  --primary-color: #3a015c;
+  --primary-hover: #4f0147;
   --dark-purple: #35012c;
   --dark-purple-2: #290025;
   --dark-purple-3: #11001c;
-
-  /* === Primary UI Colors === */
-  --primary-color: #1e3a8a; /* Royal Blue (buttons, headers) */
-  --primary-hover: #172554; /* Darker Royal Blue on hover */
-  --secondary-color: #38bdf8; /* Sky Blue (highlights, links) */
 
   /* === Background & Surface === */
   --background-color: #f9fafb; /* Ghost White */
@@ -23,11 +18,9 @@
   /* === Semantic Colors === */
   --success-color: #10b981; /* Emerald Green */
   --warning-color: #f59e0b; /* Amber */
-  --error-color: #ef4444; /* Rose Red */
+  --danger-color: #ef4444; /* Rose Red */
 
-  /* === Accent Blends === */
-  --brand-gradient-start: #3a015c;
-  --brand-gradient-end: #1e3a8a;
+  --sidebar-width: 250px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
@@ -48,156 +41,153 @@ body {
   height: 34px;
 }
 
-/* SIDEBAR */
+.main-container {
+  flex: 1;
+  display: flex;
+  margin-left: 5rem;
+  overflow-x: hidden;
+}
 
 .dashboard-body {
-    display: flex;
-    height: 100vh;
-    margin: 0;
+  margin-left: var(--sidebar-width);
+  overflow: auto;
+  padding: 10px;
 }
 
-#main-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-left: 5rem;
-    overflow-x: hidden;
-}
-
-#navbar {
-    background-color: hsl(210, 29%, 29%);
-    color: white;
-    margin-left: 14em;
-    padding: 10px;
-}
-
-#content {
-    flex: 1;
-    padding: 20px 0;
+.dashboard-navbar {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 2px 3px 22px #;
 }
 
 .card {
-    border: none !important;
+  border: none !important;
 }
 
-/* --- Simplified Sidebar Styles --- */
+.section-title {
+  margin: 12px 0;
+  font-weight: 600;
+}
+/* SIDEBAR */
 .sidebar {
-    background: #fff;
-    min-height: 100vh;
-    width: 220px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid var(--border-color, #e5e7eb);
-    transition: width 0.3s;
+  background: #fff;
+  min-height: 100vh;
+  min-width: var(--sidebar-width);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color, #e5e7eb);
+  transition: width 0.3s;
 }
 
 .sidebar .header {
-    padding: 1.2rem 1rem;
-    display: flex;
-    align-items: center;
-    background: #f5f5f5;
-    border-bottom: 1px solid var(--border-color, #e5e7eb);
+  padding: 1.2rem 1rem;
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
 }
 
 .sidebar .header a {
-    text-decoration: none;
-    color: #1e3a8a;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .sidebar .separator-wrapper {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
 .sidebar .separator {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 0.5rem 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0.5rem 0;
 }
 
 .sidebar .navigations {
-    padding: 1rem 0.5rem;
-    flex: 1;
+  padding: 1rem 0.5rem;
+  flex: 1;
 }
 
 .sidebar .navigations .section {
-    margin-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .sidebar .navigations .title {
-    font-size: 0.85rem;
-    color: #374151;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  color: #374151;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 .sidebar .navigations .title-wrapper {
   margin-bottom: 10px;
 }
 
 .sidebar .navigations .items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar .navigations .item {
-    margin-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .sidebar .navigations .item a {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.6rem 1rem;
-    color: #374151;
-    text-decoration: none;
-    border-radius: 0.4rem;
-    transition: background 0.2s, color 0.2s;
-    font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1rem;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 0.4rem;
+  transition: background 0.2s, color 0.2s;
+  font-size: 1rem;
 }
 
 .sidebar .navigations .item.active a,
 .sidebar .navigations .item a:hover {
-    background: #1e3a8a;
-    color: #fff;
+  background: var(--primary-color);
+  color: #fff;
 }
 
 .minimize-btn {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    gap: 0.3rem;
-    color: #1e3a8a;
-    font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  gap: 0.3rem;
+  color: var(--primary-color);
+  font-size: 1.1rem;
 }
 
 .minimize-btn input[type="checkbox"] {
-    display: none;
+  display: none;
 }
 
 /* Optional: Hide text when minimized (add .minimized to .sidebar via JS) */
 .sidebar.minimized {
-    width: 60px;
+  width: 60px;
 }
 .sidebar.minimized .header .unfocus,
 .sidebar.minimized .navigations .title,
 .sidebar.minimized .item-text {
-    display: none;
+  display: none;
 }
 .sidebar.minimized .navigations .item a {
-    justify-content: center;
-    padding: 0.6rem 0;
+  justify-content: center;
+  padding: 0.6rem 0;
 }
 .item-tooltip {
   display: none;
