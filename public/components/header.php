@@ -30,7 +30,7 @@ function set_title(string $title = 'ServiceHub')
     <link rel="stylesheet" href="../assets/css/toasted.css" />
     <script src="../assets/js/toasted.js"></script>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
 
 
     <link rel="stylesheet" href="../assets/css/soft-design-system-pro.min3f71.css">
@@ -38,7 +38,7 @@ function set_title(string $title = 'ServiceHub')
 
     <style>
         body {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Lato', sans-serif;
         }
     </style>
 
