@@ -24,17 +24,20 @@ function set_title(string $title = 'ServiceHub')
 
     <!-- Lottie Animations -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <!-- <script src="../assets/js/lottie-player.js"></script> -->
+    <!-- <script src="/servicehub/public/assets/js/lottie-player.js"></script> -->
 
     <!-- Toasted JS for notifications -->
-    <link rel="stylesheet" href="../assets/css/toasted.css" />
-    <script src="../assets/js/toasted.js"></script>
+    <link rel="stylesheet" href="/servicehub/public/assets/css/toasted.css" />
+    <script src="/servicehub/public/assets/js/toasted.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
 
 
-    <link rel="stylesheet" href="../assets/css/soft-design-system-pro.min3f71.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="/servicehub/public/assets/css/soft-design-system-pro.min3f71.css">
+    <link rel="stylesheet" href="/servicehub/public/assets/css/style.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         body {

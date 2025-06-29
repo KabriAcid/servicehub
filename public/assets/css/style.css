@@ -263,7 +263,7 @@ p {
 
 /* Sidebar */
 .sidebar {
-    width: 80px;
+    width: 120px;
     background-color: var(--background-color);
     border-right: 1px solid var(--border-color);
     height: 100vh;
@@ -288,6 +288,11 @@ p {
 
 .nav-link:hover {
     color: var(--primary-hover);
+}
+
+.nav-link span {
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .text-purple {
