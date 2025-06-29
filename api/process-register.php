@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/config.php';
 
 // Helper function to sanitize input
 function clean_input($data)
@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Basic validation
     if (!$name || !$email || !$phone || !$password || !$role || !$location) {
-        header("Location: ../register.php?error=Please+fill+all+fields");
+        $_SESSION['error'] = "Please fill all fields.";
+        header("Location: ../register.php");
         exit;
     }
 
@@ -27,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? OR phone = ?");
     $stmt->execute([$email, $phone]);
     if ($stmt->fetch()) {
-        header("Location: ../register.php?error=Email+or+phone+already+registered");
+        $_SESSION['error'] = "Email or phone already registered.";
+        header("Location: ../register.php");
         exit;
     }
 
@@ -39,13 +41,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->execute([$name, $email, $phone, $hashed_password, $role, $location]);
 
     if ($result) {
-        header("Location: ../login.php?success=Account+created+successfully");
+        // Get the newly created user's ID
+        $user_id = $pdo->lastInsertId();
+
+        // Create a wallet row for the user
+        $stmt = $pdo->prepare("INSERT INTO wallets (user_id, balance, last_updated) VALUES (?, ?, NOW())");
+        $stmt->execute([$user_id, 0.00]);
+
+        $_SESSION['success'] = "Account created successfully.";
+        header("Location: ../login.php");
         exit;
     } else {
-        header("Location: ../register.php?error=Registration+failed");
+        $_SESSION['error'] = "Registration failed.";
+        header("Location: ../register.php");
         exit;
     }
 } else {
+    $_SESSION['error'] = "Invalid request method.";
     header("Location: ../register.php");
     exit;
 }
