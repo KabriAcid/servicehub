@@ -43,9 +43,3 @@ function set_title(string $title = 'ServiceHub')
     </style>
 
 </head>
-
-<body>
-
-</body>
-
-</html>

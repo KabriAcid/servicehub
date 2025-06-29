@@ -2,126 +2,58 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
-<aside class="sidebar">
-    <nav>
-        <div class="header">
-            <a href="dashboard.php">
-                <span class="focus">
-                    <img src="../../favicon.png" alt="favicon" width="50px" height="50px">
-                </span>
-                <span class="unfocus">ServiceHub</span>
+<aside class="sidebar bg-light-purple">
+    <nav class="d-flex flex-column align-items-center py-4">
+        <!-- Header Section -->
+        <div class="header mb-4">
+            <a href="dashboard.php" class="d-flex flex-column align-items-center text-decoration-none">
+                <img src="../../favicon.png" alt="favicon" class="rounded-circle mb-2" width="50px" height="50px">
+                <span class="text-dark fw-bold">ServiceHub</span>
             </a>
         </div>
-        <div class="separator-wrapper">
-            <hr class="separator" />
-            <label for="minimize" class="minimize-btn">
-                <input type="checkbox" id="minimize" />
-                <i class="fa fa-angle-left"></i>
-            </label>
-        </div>
-        <div class="navigations">
-            <div class="section main-section">
-                <div class="title-wrapper">
-                    <span class="title">Main</span>
-                </div>
-                <ul class="items">
-                    <li class="item <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>">
-                        <a href="dashboard.php">
-                            <i class="fa fa-table-columns"></i>
-                            <span class="item-text">Dashboard</span>
-                            <span class="item-tooltip">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="item <?php echo ($current_page == 'services.php') ? 'active' : ''; ?>">
-                        <a href="services.php">
-                            <i class="fa fa-concierge-bell"></i>
-                            <span class="item-text">Services</span>
-                            <span class="item-tooltip">Services</span>
-                        </a>
-                    </li>
-                    <li class="item <?php echo ($current_page == 'profile.php') ? 'active' : ''; ?>">
-                        <a href="profile.php">
-                            <i class="fa fa-user"></i>
-                            <span class="item-text">Profile</span>
-                            <span class="item-tooltip">Profile</span>
-                        </a>
-                    </li>
-                    <li class="item <?php echo ($current_page == 'clients.php') ? 'active' : ''; ?>">
-                        <a href="clients.php">
-                            <i class="fa fa-users"></i>
-                            <span class="item-text">Clients</span>
-                            <span class="item-tooltip">Clients</span>
-                        </a>
-                    </li>
-                    <?php
-                    if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin') {
-                    ?>
-                        <li class="item <?php echo ($current_page == 'add_service.php') ? 'active' : ''; ?>">
-                            <a href="add_service.php">
-                                <i class="fa fa-plus"></i>
-                                <span class="item-text">Add Service</span>
-                                <span class="item-tooltip">Add Service</span>
-                            </a>
-                        </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                    if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin') {
-                    ?>
-                        <li class="item <?php echo ($current_page == 'add_service.php') ? 'active' : ''; ?>">
-                            <a href="add_service.php">
-                                <i class="fa fa-plus"></i>
-                                <span class="item-text">Add Service</span>
-                                <span class="item-tooltip">Add Service</span>
-                            </a>
-                        </li>
-                    <?php
-                    }
-                    ?>
-                    <li class="item <?php echo ($current_page == 'appointments.php') ? 'active' : ''; ?>">
-                        <a href="appointments.php">
-                            <i class="fa fa-calendar-alt"></i>
-                            <span class="item-text">Appointments</span>
-                            <span class="item-tooltip">Appointments</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="section settings-section">
-                <div class="title-wrapper">
-                    <span class="title">Settings</span>
-                </div>
-                <ul class="items">
-                    <?php
-                    if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin') {
-                    ?>
-                        <li class="item <?php echo ($current_page == 'manage_app.php') ? 'active' : ''; ?>">
-                            <a href="manage_app.php">
-                                <i class="fa fa-cog"></i>
-                                <span class="item-text">Manage App</span>
-                                <span class="item-tooltip">Manage App</span>
-                            </a>
-                        </li>
-                    <?php
-                    }
-                    ?>
-                    <li class="item <?php echo ($current_page == 'update_password.php') ? 'active' : ''; ?>">
-                        <a href="update_password.php">
-                            <i class="fa fa-lock"></i>
-                            <span class="item-text">Change Password</span>
-                            <span class="item-tooltip">Change Password</span>
-                        </a>
-                    </li>
-                    <li class="item">
-                        <a href="/servicehub/logout.php">
-                            <i class="fa fa-key"></i>
-                            <span class="item-text">Logout</span>
-                            <span class="item-tooltip">Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
+        <!-- Navigation Items -->
+        <ul class="nav flex-column text-center w-100">
+            <li class="nav-item mb-3">
+                <a href="dashboard.php" class="nav-link <?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>">
+                    <i class="fa fa-home text-purple"></i>
+                    <span class="d-block text-purple">Home</span>
+                </a>
+            </li>
+            <li class="nav-item mb-3">
+                <a href="services.php" class="nav-link <?php echo ($current_page == 'services.php') ? 'active' : ''; ?>">
+                    <i class="fa fa-concierge-bell text-purple"></i>
+                    <span class="d-block text-purple">Services</span>
+                </a>
+            </li>
+            <li class="nav-item mb-3">
+                <a href="profile.php" class="nav-link <?php echo ($current_page == 'profile.php') ? 'active' : ''; ?>">
+                    <i class="fa fa-user text-purple"></i>
+                    <span class="d-block text-purple">Profile</span>
+                </a>
+            </li>
+            <li class="nav-item mb-3">
+                <a href="appointments.php" class="nav-link <?php echo ($current_page == 'appointments.php') ? 'active' : ''; ?>">
+                    <i class="fa fa-calendar-alt text-purple"></i>
+                    <span class="d-block text-purple">Appointments</span>
+                </a>
+            </li>
+            <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin') { ?>
+                <li class="nav-item mb-3">
+                    <a href="manage_app.php" class="nav-link <?php echo ($current_page == 'manage_app.php') ? 'active' : ''; ?>">
+                        <i class="fa fa-cog text-purple"></i>
+                        <span class="d-block text-purple">Manage App</span>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+
+        <!-- Footer Section -->
+        <div class="footer mt-auto">
+            <a href="/servicehub/logout.php" class="nav-link text-purple">
+                <i class="fa fa-sign-out-alt"></i>
+                <span class="d-block">Logout</span>
+            </a>
         </div>
     </nav>
 </aside>
