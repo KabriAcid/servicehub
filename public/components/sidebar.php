@@ -7,8 +7,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <!-- Header Section -->
         <div class="header mb-4">
             <a href="dashboard.php" class="d-flex flex-column align-items-center text-decoration-none">
-                <img src="../../favicon.png" alt="favicon" class="rounded-circle mb-2" width="50px" height="50px">
-                <span class="text-dark fw-bold">ServiceHub</span>
+                <img src="/servicehub/public/favicon.png" alt="favicon" class="rounded-circle mb-2" width="50px" height="50px">
+                <span class="text-dark lato-bold">ServiceHub</span>
             </a>
         </div>
 
@@ -51,9 +51,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <!-- Footer Section -->
         <div class="footer mt-auto">
             <a href="/servicehub/logout.php" class="nav-link text-purple">
-                <i class="fa fa-sign-out-alt"></i>
+                <i class="fa fa-sign-out-alt text-center d-block"></i>
                 <span class="d-block">Logout</span>
             </a>
+        </div>
+
+        <!-- Avatar Section -->
+        <div class="avatar-section mt-4">
+            <img src="/servicehub/public/assets/img/avatar.jpg" alt="User Avatar" class="rounded">
+            <span class="status-indicator bg-success rounded-circle"></span>
         </div>
     </nav>
 </aside>
