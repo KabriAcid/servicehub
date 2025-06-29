@@ -2,13 +2,13 @@
 require __DIR__ . '/../../config/config.php';
 require __DIR__ . '/../components/header.php';
 require_once __DIR__ . '/../../functions/utilities.php';
-
 ?>
 
 <body>
     <div class="main-container">
         <?php require_once __DIR__ . '/../components/sidebar.php'; ?>
         <div class="dashboard-body">
+            <?php require_once __DIR__ . '/../components/dashboard-navbar.php'; ?>
             <div class="container-fluid">
                 <div class="row g-4 my-3">
                     <?php if ($user['role'] == 'client') { ?>
