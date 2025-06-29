@@ -1,29 +1,42 @@
 :root {
-  /* === Core Brand Colors (Your Deep Purples) === */
-  --primary-color: #3a015c;
+  /* === Core Brand Colors === */
+  --primary-color: #611f69; /* Slack-inspired purple */
+  --primary-dark: #4a154b;
   --primary-hover: #4f0147;
-  --dark-purple: #35012c;
-  --dark-purple-2: #290025;
-  --dark-purple-3: #11001c;
 
-  /* === Background & Surface === */
+  --success-color: #36c5f0; /* Slack-inspired green */
+  --warning-color: #ecb22e; /* Slack-inspired yellow */
+  --danger-color: #e01e5a; /* Slack-inspired red */
+
+  /* === Neutral Colors === */
   --background-color: #f9fafb; /* Ghost White */
   --card-background: #ffffff; /* White cards */
   --border-color: #e5e7eb; /* Light gray for dividers and inputs */
+  --text-color: #374151; /* Base text color */
+  --heading-color: #111827; /* Charcoal gray */
 
   /* === Typography === */
-  --heading-color: #111827; /* Charcoal gray */
-  --text-color: #374151; /* Base text color */
+  --font-family: "Lato", sans-serif;
+  --font-size-base: 16px;
+  --font-size-heading: 24px;
 
-  /* === Semantic Colors === */
-  --success-color: #10b981; /* Emerald Green */
-  --warning-color: #f59e0b; /* Amber */
-  --danger-color: #ef4444; /* Rose Red */
+  /* === Spacing === */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+
+  /* === Border Radius === */
+  --border-radius: 6px;
+
+  /* === Input and Button Dimensions === */
+  --input-height: 48px;
+  --button-height: 48px;
+  --button-padding: 12px 24px;
 
   --sidebar-width: 250px;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 * {
   padding: 0;
@@ -32,8 +45,10 @@
 }
 
 body {
-  background-color: var(--primary-light);
-  font-family: "Sora", sans-serif;
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text-color);
 }
 
 .favicon {
@@ -59,11 +74,15 @@ body {
   color: white;
   border-radius: 12px;
   padding: 10px;
-  box-shadow: 2px 3px 22px #;
+  box-shadow: 2px 3px 22px #ddd;
 }
 
 .card {
-  border: none !important;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-medium);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
@@ -81,7 +100,7 @@ body {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border-color, #e5e7eb);
+  border-right: 1px solid var(--border-color);
   transition: width 0.3s;
 }
 
@@ -90,7 +109,7 @@ body {
   display: flex;
   align-items: center;
   background: #f5f5f5;
-  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .sidebar .header a {
@@ -109,7 +128,7 @@ body {
 
 .sidebar .separator {
   border: none;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
   margin: 0.5rem 0;
 }
 
@@ -124,7 +143,7 @@ body {
 
 .sidebar .navigations .title {
   font-size: 0.85rem;
-  color: #374151;
+  color: var(--text-color);
   text-transform: uppercase;
   margin-bottom: 0.4rem;
   font-weight: 500;
@@ -149,7 +168,7 @@ body {
   align-items: center;
   gap: 0.7rem;
   padding: 0.6rem 1rem;
-  color: #374151;
+  color: var(--text-color);
   text-decoration: none;
   border-radius: 0.4rem;
   transition: background 0.2s, color 0.2s;
@@ -192,4 +211,113 @@ body {
 .item-tooltip {
   display: none;
 }
-/* --- End Simplified Sidebar Styles --- */
+
+/* === Reusable Input Field Styles === */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  height: var(--input-height);
+  padding: var(--spacing-small);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  background-color: var(--card-background);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(97, 31, 105, 0.2); /* Slack-inspired focus effect */
+  outline: none;
+}
+
+/* === Reusable Button Styles === */
+button {
+  height: var(--button-height);
+  padding: var(--button-padding);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button.primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+button.primary:hover {
+  background-color: var(--primary-hover);
+}
+
+button.success {
+  background-color: var(--success-color);
+  color: #fff;
+}
+
+button.success:hover {
+  background-color: #2eb67d; /* Slightly darker green */
+}
+
+button.danger {
+  background-color: var(--danger-color);
+  color: #fff;
+}
+
+button.danger:hover {
+  background-color: #c01e4a; /* Slightly darker red */
+}
+
+/* === Typography === */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+h1 {
+  font-size: var(--font-size-heading);
+}
+
+p {
+  margin-bottom: var(--spacing-medium);
+}
+
+/* === Utility Classes === */
+.text-center {
+  text-align: center;
+}
+
+.mt-small {
+  margin-top: var(--spacing-small);
+}
+
+.mt-medium {
+  margin-top: var(--spacing-medium);
+}
+
+.mt-large {
+  margin-top: var(--spacing-large);
+}
+
+.mb-small {
+  margin-bottom: var(--spacing-small);
+}
+
+.mb-medium {
+  margin-bottom: var(--spacing-medium);
+}
+
+.mb-large {
+  margin-bottom: var(--spacing-large);
+}
