@@ -1,24 +1,18 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../login.php");
-    exit;
-}
-
+require __DIR__ . '/../../config/config.php';
 require __DIR__ . '/../components/header.php';
-require_once __DIR__ . '/../components/sidebar.php';
-
-// Fetch user role from session
-$user_role = $_SESSION['role'];
 ?>
 
 <body>
-    <div class="main-content">
+    <div class="main-container">
+        <?php
+        require_once __DIR__ . '/../components/sidebar.php';
+        ?>
         <div class="dashboard-body">
-            <?php require_once __DIR__ . '/../components/navbar.php'; ?>
+            <?php # require_once __DIR__ . '/../components/dashboard-navbar.php'; ?>
             <div class="container-fluid">
                 <div class="row g-4 my-3">
-                    <?php if ($user_role == 'client') { ?>
+                    <?php if ($user['role'] == 'client') { ?>
                         <!-- Customer Dashboard -->
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">
@@ -41,7 +35,7 @@ $user_role = $_SESSION['role'];
                                 <p class="card-text fs-4">--</p>
                             </div>
                         </div>
-                    <?php } elseif ($user_role == 'provider') { ?>
+                    <?php } elseif ($user['role'] == 'provider') { ?>
                         <!-- Provider Dashboard -->
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">
@@ -64,7 +58,7 @@ $user_role = $_SESSION['role'];
                                 <p class="card-text fs-4">--</p>
                             </div>
                         </div>
-                    <?php } elseif ($user_role == 'admin') { ?>
+                    <?php } elseif ($user['role'] == 'admin') { ?>
                         <!-- Admin Dashboard -->
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">

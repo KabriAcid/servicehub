@@ -10,6 +10,21 @@
         <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
             <div class="card shadow-lg p-4" style="max-width: 800px; width: 100%;">
                 <h3 class="text-center mb-4 fw-bold">Create Your Account</h3>
+                <!-- Alert Section -->
+                <?php if (isset($_SESSION['error'])) { ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo $_SESSION['error'];
+                        unset($_SESSION['error']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php } ?>
+                <?php if (isset($_SESSION['success'])) { ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo $_SESSION['success'];
+                        unset($_SESSION['success']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php } ?>
                 <form action="api/process-register.php" method="POST" autocomplete="off">
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>

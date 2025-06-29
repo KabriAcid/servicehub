@@ -119,23 +119,26 @@ body {
 .main-container {
   flex: 1;
   display: flex;
-  margin-left: 5rem;
-  overflow-x: hidden;
 }
 
 .dashboard-body {
-  margin-left: var(--sidebar-width);
-  overflow: auto;
-  padding: 10px;
+  margin-left: 7.5rem;
+  padding: 15px 20px;
+  width: 100%;
+  border-top: 50px solid var(--primary-color);
+  border-left: 50px solid var(--primary-color);
+  border-right: 15px solid var(--primary-color);
 }
 
-.dashboard-navbar {
-  background-color: var(--primary-color);
+/* .dashboard-navbar {
+  position: absolute;
+  top: 0;
+  left: 250px;
+  right: 0;
   color: white;
   border-radius: 12px;
-  padding: 10px;
-  box-shadow: 2px 3px 22px #ddd;
-}
+  width: 100%;
+} */
 
 .card {
   background-color: var(--card-background);
