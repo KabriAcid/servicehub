@@ -130,15 +130,31 @@ body {
   border-right: 15px solid var(--primary-color);
 }
 
-/* .dashboard-navbar {
-  position: absolute;
-  top: 0;
-  left: 250px;
-  right: 0;
-  color: white;
-  border-radius: 12px;
-  width: 100%;
-} */
+.dashboard-navbar {
+    position: fixed;
+    top: 0;
+    left: 120px; /* Adjust based on sidebar width */
+    right: 0;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar-icons a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-icons a:hover {
+    color: var(--success-color);
+}
 
 .card {
   background-color: var(--card-background);
