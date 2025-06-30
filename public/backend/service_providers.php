@@ -43,7 +43,7 @@ $providers = $providers->fetchAll(PDO::FETCH_ASSOC);
                                     <p class="card-text"><strong>Location:</strong> <?php echo htmlspecialchars($provider['location']); ?></p>
                                     <p class="card-text"><strong>Price:</strong> ₦<?php echo number_format($provider['price'], 2); ?></p>
                                     <p class="card-text"><strong>Rating:</strong> <?php echo htmlspecialchars($provider['rating']); ?> ★</p>
-                                    <a href="/servicehub/public/backend/provider_profile.php?provider_id=<?php echo $provider['id']; ?>" class="btn btn-primary">
+                                    <a href="/servicehub/public/backend/provider_profile.php?provider_id=<?php echo $provider['id']; ?>" class="btn primary-btn">
                                         View Profile
                                     </a>
                                 </div>
