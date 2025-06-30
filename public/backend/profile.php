@@ -12,6 +12,20 @@ require_once __DIR__ . '/../../functions/utilities.php';
                 <div class="container py-5" style="max-width: 600px;">
                     <h2 class="text-center mb-4">Your Profile</h2>
                     <form action="/servicehub/api/process-profile.php" method="POST">
+                        <?php if (isset($_SESSION['error'])) { ?>
+                            <div class="alert alert-danger text-white text-center alert-dismissible fade show" role="alert">
+                                <?php echo $_SESSION['error'];
+                                unset($_SESSION['error']); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php } ?>
+                        <?php if (isset($_SESSION['success'])) { ?>
+                            <div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+                                <?php echo $_SESSION['success'];
+                                unset($_SESSION['success']); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php } ?>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="input-field form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
