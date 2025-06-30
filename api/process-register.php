@@ -10,16 +10,24 @@ function clean_input($data)
 // Check if form is submitted via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Collect and sanitize form data
-    $name     = clean_input($_POST['name'] ?? '');
-    $email    = clean_input($_POST['email'] ?? '');
-    $phone    = clean_input($_POST['phone'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $role     = clean_input($_POST['role'] ?? '');
-    $location = clean_input($_POST['location'] ?? '');
+    $name             = clean_input($_POST['name'] ?? '');
+    $email            = clean_input($_POST['email'] ?? '');
+    $phone            = clean_input($_POST['phone'] ?? '');
+    $password         = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+    $role             = clean_input($_POST['role'] ?? '');
+    $location         = clean_input($_POST['location'] ?? '');
 
     // Basic validation
-    if (!$name || !$email || !$phone || !$password || !$role || !$location) {
+    if (!$name || !$email || !$phone || !$password || !$confirm_password || !$role || !$location) {
         $_SESSION['error'] = "Please fill all fields.";
+        header("Location: ../register.php");
+        exit;
+    }
+
+    // Validate password match
+    if ($password !== $confirm_password) {
+        $_SESSION['error'] = "Passwords do not match.";
         header("Location: ../register.php");
         exit;
     }

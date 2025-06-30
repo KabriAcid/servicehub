@@ -114,6 +114,10 @@ body {
 .accent-color {
   color: var(--primary-color) !important;
 }
+.bg-accent-color {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
 
 .favicon {
   width: 34px;

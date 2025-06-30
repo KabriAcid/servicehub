@@ -3,7 +3,7 @@
 <body>
     <div class="container-fluid py-5 mt-5">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold">Welcome Back!</h1>
+            <h1 class="display-4 fw-bold accent-color">Welcome Back!</h1>
             <p class="lead">Login to your account to continue</p>
         </div>
         <div class="container d-flex align-items-center justify-content-center mt-5">
@@ -17,7 +17,7 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="input-field" id="password" name="password" placeholder="Enter your password" required minlength="6">
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Login</button>
+                    <button type="submit" class="btn primary-btn w-100">Login</button>
                 </form>
                 <div class="text-center mt-3">
                     <span>Don't have an account?</span>
