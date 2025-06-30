@@ -30,7 +30,7 @@ if (!$provider) {
             <div class="container-fluid">
                 <h2 class="text-center mb-4">Book Service: <?php echo htmlspecialchars($provider['title']); ?></h2>
                 <div class="card shadow p-4">
-                    <form action="/servicehub/api/process-booking.php" method="POST">
+                    <form id="booking-form">
                         <input type="hidden" name="provider_id" value="<?php echo $provider['id']; ?>">
                         <input type="hidden" name="service_id" value="<?php echo $provider['service_id']; ?>">
                         <div class="mb-3">
@@ -50,12 +50,77 @@ if (!$provider) {
                                 <option value="cash">Cash</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn primary-btn w-100">Confirm Booking</button>
+                        <button type="button" id="confirm-booking-btn" class="btn primary-btn w-100">Confirm Booking</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal Dialog -->
+    <div class="modal" id="wallet-confirm-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Wallet Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to proceed with wallet payment?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary-btn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirm-wallet-btn" class="btn primary-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader Animation -->
+    <div id="loader" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Processing...</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirm-booking-btn').addEventListener('click', function() {
+            const paymentMethod = document.getElementById('payment_method').value;
+
+            if (paymentMethod === 'wallet') {
+                const modal = new bootstrap.Modal(document.getElementById('wallet-confirm-modal'));
+                modal.show();
+            } else {
+                document.getElementById('booking-form').submit();
+            }
+        });
+
+        document.getElementById('confirm-wallet-btn').addEventListener('click', function() {
+            const formData = new FormData(document.getElementById('booking-form'));
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            fetch('/servicehub/api/process-wallet-booking.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    loader.style.display = 'none';
+                    if (data.success) {
+                        alert('Booking successful!');
+                        window.location.href = '/servicehub/public/backend/book_service.php?provider_id=' + formData.get('provider_id');
+                    } else {
+                        alert('Booking failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    loader.style.display = 'none';
+                    console.error('Error:', error);
+                    alert('An error occurred while processing your booking.');
+                });
+        });
+    </script>
 </body>
 
 </html>
