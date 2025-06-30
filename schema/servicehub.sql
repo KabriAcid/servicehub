@@ -91,6 +91,36 @@ CREATE TABLE `transactions` (
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('client','provider') NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `verified` tinyint(1) DEFAULT 0,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `phone`, `location`, `verified`, `created_at`, `updated_at`) VALUES
+(1, 'Emerald Tate', 'kabriacid01@gmail.com', '$2y$10$K1n62Njaml1hVTOibO/UTeXeRw7XbFJZ0abSzQ1pAM1jZhtdZfKvS', 'provider', NULL, 'Est quibusdam vel ut aut culpa', 0, '2025-06-20 18:12:32', '2025-06-20 18:30:24'),
+(2, 'Ebony Harrison', 'mudafybyr@mailinator.com', '$2y$10$CTuelpdmhOBsHMewM5/tjOYwij4pAKZdQh.xnVXtmbsoLMydo74oe', 'provider', '+1 (607) 327-3633', 'Proident beatae sint voluptas autem aut aute numquam cupidatat adipisci numquam adipisci rerum mole', 0, '2025-06-20 18:31:09', '2025-06-20 18:31:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wallets`
+--
 
 CREATE TABLE `wallets` (
   `id` int(11) NOT NULL,
