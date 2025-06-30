@@ -28,19 +28,19 @@
                 <form action="api/process-register.php" method="POST" autocomplete="off">
                     <div class="mb-3">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Jane Doe" required inputmode="text" maxlength="100">
+                        <input type="text" class="input-field" id="name" name="name" placeholder="Jane Doe" required inputmode="text" maxlength="100">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@email.com" required inputmode="email" maxlength="100">
+                        <input type="email" class="input-field" id="email" name="email" placeholder="you@email.com" required inputmode="email" maxlength="100">
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="08012345678" required inputmode="tel" maxlength="20">
+                        <input type="tel" class="input-field" id="phone" name="phone" placeholder="08012345678" required inputmode="tel" maxlength="20">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required minlength="6">
+                        <input type="password" class="input-field" id="password" name="password" placeholder="Create a password" required minlength="6">
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">Register As</label>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="City, State" required inputmode="text" maxlength="100">
+                        <input type="text" class="input-field" id="location" name="location" placeholder="City, State" required inputmode="text" maxlength="100">
                     </div>
                     <button type="submit" class="btn btn-success w-100">Register</button>
                 </form>

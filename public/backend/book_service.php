@@ -21,11 +21,6 @@ if (!$provider) {
     header("Location: /servicehub/public/backend/service_providers.php");
     exit;
 }
-
-// Fetch user details (optional, for contact information)
-$user = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-$user->execute([$provider['user_id']]);
-$user = $user->fetch();
 ?>
 
 <body>
@@ -35,24 +30,27 @@ $user = $user->fetch();
             <div class="container-fluid">
                 <h2 class="text-center mb-4">Book Service: <?php echo htmlspecialchars($provider['title']); ?></h2>
                 <div class="card shadow p-4">
-                    <h3 class="card-title"><?php echo htmlspecialchars($provider['title']); ?></h3>
-                    <p class="card-text"><strong>Description:</strong> <?php echo htmlspecialchars($provider['description']); ?></p>
-                    <p class="card-text"><strong>Location:</strong> <?php echo htmlspecialchars($provider['location']); ?></p>
-                    <p class="card-text"><strong>Price:</strong> ₦<?php echo number_format($provider['price'], 2); ?></p>
-                    <p class="card-text"><strong>Rating:</strong> <?php echo htmlspecialchars($provider['rating']); ?> ★</p>
-                    <?php if ($user) { ?>
-                        <p class="card-text"><strong>Contact:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-                        <p class="card-text"><strong>Phone:</strong> <?php echo htmlspecialchars($user['phone']); ?></p>
-                    <?php } ?>
-                </div>
-                <div class="mt-4">
                     <form action="/servicehub/api/process-booking.php" method="POST">
                         <input type="hidden" name="provider_id" value="<?php echo $provider['id']; ?>">
+                        <input type="hidden" name="service_id" value="<?php echo $provider['service_id']; ?>">
                         <div class="mb-3">
                             <label for="scheduled_date" class="form-label">Schedule Date</label>
-                            <input type="datetime-local" class="form-control" id="scheduled_date" name="scheduled_date" required>
+                            <input type="datetime-local" class="input-field" id="scheduled_date" name="scheduled_date" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
+                        <div class="mb-3">
+                            <label for="additional_notes" class="form-label">Additional Notes</label>
+                            <textarea class="input-field" id="additional_notes" name="additional_notes" rows="4" placeholder="Enter any additional notes or requirements"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment_method" class="form-label">Payment Method</label>
+                            <select class="form-select" id="payment_method" name="payment_method" required>
+                                <option value="" disabled selected>Select a payment method</option>
+                                <option value="wallet">Wallet</option>
+                                <option value="card">Card</option>
+                                <option value="cash">Cash</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn primary-btn w-100">Confirm Booking</button>
                     </form>
                 </div>
             </div>
