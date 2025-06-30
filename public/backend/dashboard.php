@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../../config/config.php';
-require __DIR__ . '/../components/header.php';
 require_once __DIR__ . '/../../functions/utilities.php';
+require __DIR__ . '/../components/header.php';
 ?>
 
 <body>
@@ -18,7 +18,7 @@ require_once __DIR__ . '/../../functions/utilities.php';
                                 <div class="card-icon text-primary mb-2"><i class="fa-solid fa-users"></i></div>
                                 <h5 class="card-title">Total Bookings</h5>
                                 <p class="card-text fs-4">
-                                    <?php echo getTotalBookings($user['id']); ?>
+                                    <?php echo getTotalBookings($pdo, $user['id']); ?>
                                 </p>
                             </div>
                         </div>
@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../functions/utilities.php';
                                 <div class="card-icon text-success mb-2"><i class="fa-solid fa-wallet"></i></div>
                                 <h5 class="card-title">Wallet Balance</h5>
                                 <p class="card-text fs-4">
-                                    ₦<?php echo number_format(getWalletBalance($user['id']), 2); ?>
+                                    ₦<?php echo number_format(getWalletBalance($pdo, $user['id']), 2); ?>
                                 </p>
                             </div>
                         </div>
@@ -45,7 +45,7 @@ require_once __DIR__ . '/../../functions/utilities.php';
                                 <div class="card-icon text-primary mb-2"><i class="fa-solid fa-briefcase"></i></div>
                                 <h5 class="card-title">Jobs Completed</h5>
                                 <p class="card-text fs-4">
-                                    <?php echo getTotalJobsCompleted($user['id']); ?>
+                                    <?php echo getTotalJobsCompleted($pdo, $user['id']); ?>
                                 </p>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ require_once __DIR__ . '/../../functions/utilities.php';
                                 <div class="card-icon text-success mb-2"><i class="fa-solid fa-wallet"></i></div>
                                 <h5 class="card-title">Earnings</h5>
                                 <p class="card-text fs-4">
-                                    ₦<?php echo number_format(getTotalRevenue($user['id']), 2); ?>
+                                    ₦<?php echo number_format(getTotalRevenue($pdo, $user['id']), 2); ?>
                                 </p>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ require_once __DIR__ . '/../../functions/utilities.php';
                                 <div class="card-icon text-warning mb-2"><i class="fa-solid fa-star"></i></div>
                                 <h5 class="card-title">Your Ratings</h5>
                                 <p class="card-text fs-4">
-                                    <?php echo getAverageRating($user['id']); ?>
+                                    <?php echo getAverageRating($pdo, $user['id']); ?>
                                 </p>
                             </div>
                         </div>
