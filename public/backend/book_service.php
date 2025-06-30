@@ -38,14 +38,13 @@ if (!$provider) {
                             <input type="datetime-local" class="input-field" id="scheduled_date" name="scheduled_date" required>
                         </div>
                         <div class="mb-3">
-                            <label for="additional_notes" class="form-label">Additional Notes</label>
+                            <label for="additional_notes" class="form-label">Additional Notes <i class="text-secondary small">(Optional)</i></label>
                             <textarea class="input-field" id="additional_notes" name="additional_notes" rows="4" placeholder="Enter any additional notes or requirements"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="payment_method" class="form-label">Payment Method</label>
                             <select class="form-select" id="payment_method" name="payment_method" required>
-                                <option value="" disabled selected>Select a payment method</option>
-                                <option value="wallet">Wallet</option>
+                                <option value="wallet" selected>Wallet</option>
                                 <option value="card">Card</option>
                                 <option value="cash">Cash</option>
                             </select>
@@ -78,11 +77,12 @@ if (!$provider) {
 
     <!-- Loader Animation -->
     <div id="loader" style="display: none;">
-        <div class="spinner-border text-primary" role="status">
+        <div class="spinner-border accent-color" role="status">
             <span class="visually-hidden">Processing...</span>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('confirm-booking-btn').addEventListener('click', function() {
             const paymentMethod = document.getElementById('payment_method').value;
@@ -98,23 +98,31 @@ if (!$provider) {
         document.getElementById('confirm-wallet-btn').addEventListener('click', function() {
             const formData = new FormData(document.getElementById('booking-form'));
             const loader = document.getElementById('loader');
-            loader.style.display = 'block';
+            loader.style.display = 'flex';
 
-            fetch('/servicehub/api/process-wallet-booking.php', {
+            // Timeout to hide loader after 10 seconds if the request takes too long
+            const loaderTimeout = setTimeout(() => {
+                loader.style.display = 'none';
+                alert('The request is taking longer than expected. Please try again later.');
+            }, 10000); // 10 seconds
+
+            fetch('/servicehub/api/process-booking.php', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
+                    clearTimeout(loaderTimeout); 
                     loader.style.display = 'none';
                     if (data.success) {
                         alert('Booking successful!');
-                        window.location.href = '/servicehub/public/backend/book_service.php?provider_id=' + formData.get('provider_id');
+                        window.location.href = '/servicehub/public/backend/dashboard.php';
                     } else {
                         alert('Booking failed: ' + data.message);
                     }
                 })
                 .catch(error => {
+                    clearTimeout(loaderTimeout); // Clear timeout if request fails
                     loader.style.display = 'none';
                     console.error('Error:', error);
                     alert('An error occurred while processing your booking.');

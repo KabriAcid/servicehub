@@ -1,18 +1,16 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../functions/utilities.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $customer_id = $current_user['id']; // Assuming the logged-in user's ID is stored in `$current_user`
+    $customer_id = $user['id'];
     $provider_id = $_POST['provider_id'] ?? null;
     $service_id = $_POST['service_id'] ?? null;
     $scheduled_date = $_POST['scheduled_date'] ?? null;
     $additional_notes = $_POST['additional_notes'] ?? null;
-    $payment_method = $_POST['payment_method'] ?? null;
 
-    // Validate input
-    if (!$provider_id || !$service_id || !$scheduled_date || !$payment_method) {
-        $_SESSION['error'] = "Please fill all required fields.";
-        header("Location: /servicehub/public/backend/book_service.php?provider_id=$provider_id");
+    if (!$provider_id || !$service_id || !$scheduled_date) {
+        echo json_encode(['success' => false, 'message' => 'Missing required fields.']);
         exit;
     }
 
@@ -23,25 +21,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $provider = $provider->fetch();
 
         if (!$provider) {
-            $_SESSION['error'] = "Provider not found.";
-            header("Location: /servicehub/public/backend/book_service.php?provider_id=$provider_id");
+            echo json_encode(['success' => false, 'message' => 'Provider not found.']);
             exit;
         }
 
-        // Retrieve necessary payloads
+        // Check wallet balance
+        $wallet_balance = getWalletBalance($pdo, $customer_id);
         $amount = $provider['price'];
 
-        // Insert booking into database
-        $stmt = $pdo->prepare("INSERT INTO bookings (customer_id, provider_id, service_id, scheduled_date, additional_notes, payment_method, amount, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
-        $stmt->execute([$customer_id, $provider_id, $service_id, $scheduled_date, $additional_notes, $payment_method, $amount]);
+        if ($wallet_balance < $amount) {
+            echo json_encode(['success' => false, 'message' => 'Insufficient wallet balance.']);
+            exit;
+        }
 
-        $_SESSION['success'] = "Service booked successfully.";
-        header("Location: /servicehub/public/backend/book_service.php?provider_id=$provider_id");
+        // Deduct wallet balance
+        $stmt = $pdo->prepare("UPDATE wallets SET balance = balance - ? WHERE user_id = ?");
+        $stmt->execute([$amount, $customer_id]);
+
+        // Insert booking into database
+        $stmt = $pdo->prepare("INSERT INTO bookings (customer_id, provider_id, service_id, scheduled_date, additional_notes, payment_method, amount, status) VALUES (?, ?, ?, ?, ?, 'wallet', ?, 'pending')");
+        $stmt->execute([$customer_id, $provider_id, $service_id, $scheduled_date, $additional_notes, $amount]);
+
+        echo json_encode(['success' => true]);
         exit;
     } catch (Exception $e) {
         error_log("Booking error: " . $e->getMessage());
-        $_SESSION['error'] = "An error occurred while booking the service.";
-        header("Location: /servicehub/public/backend/book_service.php?provider_id=$provider_id");
+        echo json_encode(['success' => false, 'message' => 'An error occurred while processing your booking.']);
         exit;
     }
 }
