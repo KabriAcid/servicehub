@@ -29,17 +29,80 @@ require_once __DIR__ . '/../../functions/utilities.php';
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php } ?>
-                    <form action="/servicehub/api/process-deposit.php" method="POST">
+                    <form id="deposit-form">
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount (₦)</label>
                             <input type="number" class="input-field" id="amount" name="amount" placeholder="Enter amount" required min="100">
                         </div>
-                        <button type="submit" class="btn primary-btn w-100">Deposit</button>
+                        <button type="button" id="deposit-btn" class="btn primary-btn w-100">Deposit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Flutterwave CDN -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script>
+        document.getElementById('deposit-btn').addEventListener('click', function() {
+            const amount = document.getElementById('amount').value;
+
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            FlutterwaveCheckout({
+                public_key: "<?php echo $_ENV['FLUTTERWAVE_PUBLIC_KEY']; ?>",
+                tx_ref: "TX_" + Math.random().toString(36).substring(2, 15),
+                amount: amount,
+                currency: "NGN",
+                redirect_url: "<?php echo $_ENV['APP_BASE_URL']; ?>api/process-deposit.php",
+                customer: {
+                    email: "<?php echo $current_user['email']; ?>",
+                    name: "<?php echo $current_user['name']; ?>"
+                },
+                customizations: {
+                    title: "ServiceHub Wallet Deposit",
+                    description: "Deposit funds into your ServiceHub wallet."
+                },
+                callback: function(data) {
+                    // Handle successful payment
+                    if (data.status === "successful") {
+                        // Send AJAX request to update the database
+                        fetch("<?php echo $_ENV['APP_BASE_URL']; ?>api/update-wallet.php", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    transaction_id: data.transaction_id,
+                                    amount: data.amount
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.success) {
+                                    alert("Wallet funded successfully!");
+                                    window.location.reload();
+                                } else {
+                                    alert("Failed to update wallet. Please contact support.");
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error updating wallet:", error);
+                                alert("An error occurred. Please try again.");
+                            });
+                    } else {
+                        alert("Payment failed. Please try again.");
+                    }
+                },
+                onclose: function() {
+                    alert("Payment window closed.");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

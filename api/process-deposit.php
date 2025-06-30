@@ -19,10 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'tx_ref' => $tx_ref,
         'amount' => $amount,
         'currency' => 'NGN',
-        'redirect_url' => $_ENV['APP_BASE_URL'] . 'public/backend/deposit.php',
         'customer' => [
-            'email' => $current_user['email'],
-            'name' => $current_user['name']
+            'email' => $user['email'],
+            'name' => $user['name']
         ],
         'customizations' => [
             'title' => 'ServiceHub Wallet Deposit',
@@ -101,19 +100,20 @@ if (isset($_GET['status']) && $_GET['status'] === 'successful') {
 
     if (isset($response_data['status']) && $response_data['status'] === 'success') {
         $amount = $response_data['data']['amount'];
-        $user_id = $current_user['id'];
+        $reference = $response_data['data']['tx_ref'];
+        $user_id = $user['id'];
 
         try {
             // Begin transaction
             $pdo->beginTransaction();
 
             // Update wallet balance
-            $stmt = $pdo->prepare("UPDATE wallets SET balance = balance + ?, last_updated = NOW() WHERE user_id = ?");
+            $stmt = $pdo->prepare("UPDATE wallets SET balance = balance + ? WHERE user_id = ?");
             $stmt->execute([$amount, $user_id]);
 
             // Record transaction
-            $stmt = $pdo->prepare("INSERT INTO transactions (user_id, type, amount, status, created_at) VALUES (?, ?, ?, ?, NOW())");
-            $stmt->execute([$user_id, 'deposit', $amount, 'completed']);
+            $stmt = $pdo->prepare("INSERT INTO transactions (user_id, type, amount, status, reference, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+            $stmt->execute([$user_id, 'deposit', $amount, $reference, 'completed']);
 
             // Commit transaction
             $pdo->commit();
