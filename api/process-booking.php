@@ -1,4 +1,3 @@
-<!-- filepath: c:\xampp\htdocs\servicehub\api\process-booking.php -->
 <?php
 require_once __DIR__ . '/../config/config.php';
 
@@ -31,22 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Retrieve necessary payloads
         $amount = $provider['price'];
-        $email = $current_user['email']; // Assuming the logged-in user's email is stored in `$current_user`
 
         // Insert booking into database
         $stmt = $pdo->prepare("INSERT INTO bookings (customer_id, provider_id, service_id, scheduled_date, additional_notes, payment_method, amount, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
         $stmt->execute([$customer_id, $provider_id, $service_id, $scheduled_date, $additional_notes, $payment_method, $amount]);
 
-        // Send payloads (e.g., email notification)
-        // Example: Sending email (you can integrate a mailer library like PHPMailer)
-        $to = $email;
-        $subject = "Booking Confirmation";
-        $message = "Dear Customer,\n\nYour booking for the service '{$provider['title']}' has been successfully scheduled on {$scheduled_date}.\n\nAmount: ₦" . number_format($amount, 2) . "\nPayment Method: {$payment_method}\n\nThank you for choosing ServiceHub!";
-        $headers = "From: no-reply@servicehub.com";
-
-        mail($to, $subject, $message, $headers);
-
-        $_SESSION['success'] = "Service booked successfully. A confirmation email has been sent.";
+        $_SESSION['success'] = "Service booked successfully.";
         header("Location: /servicehub/public/backend/book_service.php?provider_id=$provider_id");
         exit;
     } catch (Exception $e) {
