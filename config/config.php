@@ -11,4 +11,6 @@ if (isset($_SESSION['user_id'])) {
         error_log("Error fetching current user: " . $e->getMessage());
         return null;
     }
+} else {
+    header("Location: ../login.php");
 }

@@ -33,9 +33,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
             <li class="nav-item mb-3">
-                <a href="appointments.php" class="nav-link <?php echo ($current_page == 'appointments.php') ? 'active' : ''; ?>">
+                <a href="bookings.php" class="nav-link <?php echo ($current_page == 'bookings.php') ? 'active' : ''; ?>">
                     <i class="fa fa-calendar-alt text-purple"></i>
-                    <span class="d-block text-purple">Appointments</span>
+                    <span class="d-block text-purple">Bookings</span>
                 </a>
             </li>
             <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'Admin') { ?>
