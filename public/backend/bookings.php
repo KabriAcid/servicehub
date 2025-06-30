@@ -19,7 +19,7 @@ $providers = $pdo->query("SELECT * FROM users WHERE role = 'provider'")->fetchAl
                     <form action="/servicehub/api/process-booking.php" method="POST">
                         <div class="mb-3">
                             <label for="service" class="form-label">Select Service</label>
-                            <select class="form-select" id="service" name="service_id" required>
+                            <select class="input-field" id="service" name="service_id" required>
                                 <option value="" disabled selected>Select a service</option>
                                 <?php foreach ($services as $service) { ?>
                                     <option value="<?php echo $service['id']; ?>">
@@ -30,7 +30,7 @@ $providers = $pdo->query("SELECT * FROM users WHERE role = 'provider'")->fetchAl
                         </div>
                         <div class="mb-3">
                             <label for="provider" class="form-label">Select Provider</label>
-                            <select class="form-select" id="provider" name="provider_id" required>
+                            <select class="input-field" id="provider" name="provider_id" required>
                                 <option value="" disabled selected>Select a provider</option>
                                 <?php foreach ($providers as $provider) { ?>
                                     <option value="<?php echo $provider['id']; ?>">
@@ -41,9 +41,9 @@ $providers = $pdo->query("SELECT * FROM users WHERE role = 'provider'")->fetchAl
                         </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">Schedule Date</label>
-                            <input type="datetime-local" class="form-control" id="date" name="scheduled_date" required>
+                            <input type="datetime-local" class="input-field" id="date" name="scheduled_date" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Book Service</button>
+                        <button type="submit" class="btn primary-btn w-100">Book Service</button>
                     </form>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Get user information by ID.
  *
@@ -155,6 +156,44 @@ function userExists($pdo, $email)
     } catch (PDOException $e) {
         error_log("Error checking user existence: " . $e->getMessage());
         return false;
+    }
+}
+
+/**
+ * Get service providers by service ID.
+ *
+ * @param PDO $pdo
+ * @param int $service_id
+ * @return array
+ */
+function getServiceProvidersByService($pdo, $service_id)
+{
+    try {
+        $query = $pdo->prepare("SELECT * FROM users WHERE role = 'provider' AND service_id = ?");
+        $query->execute([$service_id]);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error fetching service providers: " . $e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Get service details by ID.
+ *
+ * @param PDO $pdo
+ * @param int $service_id
+ * @return array|null
+ */
+function getServiceDetails($pdo, $service_id)
+{
+    try {
+        $query = $pdo->prepare("SELECT * FROM services WHERE id = ?");
+        $query->execute([$service_id]);
+        return $query->fetch();
+    } catch (PDOException $e) {
+        error_log("Error fetching service details: " . $e->getMessage());
+        return null;
     }
 }
 
