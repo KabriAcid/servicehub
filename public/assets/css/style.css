@@ -111,6 +111,10 @@ body {
   font-style: italic;
 }
 
+.accent-color {
+  color: var(--primary-color)!important;
+}
+
 .favicon {
   width: 34px;
   height: 34px;
