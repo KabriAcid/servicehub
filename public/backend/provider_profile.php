@@ -45,7 +45,7 @@ $user_provider = $user_provider->fetch();
                         <p class="card-text"><strong>Contact:</strong> <?php echo htmlspecialchars($user_provider['email']); ?></p>
                         <p class="card-text"><strong>Phone:</strong> <?php echo htmlspecialchars($user_provider['phone']); ?></p>
                     <?php } ?>
-                    <a href="/servicehub/public/backend/book_service.php?provider_id=<?php echo $provider['id']; ?>" class="btn btn-primary">
+                    <a href="/servicehub/public/backend/book_service.php?provider_id=<?php echo $provider['id']; ?>" class="btn primary-btn">
                         Book Service
                     </a>
                 </div>

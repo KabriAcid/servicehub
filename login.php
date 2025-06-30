@@ -11,11 +11,11 @@
                 <form action="api/process-login.php" method="POST" autocomplete="off">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@email.com" required inputmode="email" maxlength="100">
+                        <input type="email" class="input-field" id="email" name="email" placeholder="you@email.com" required inputmode="email" maxlength="100">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required minlength="6">
+                        <input type="password" class="input-field" id="password" name="password" placeholder="Enter your password" required minlength="6">
                     </div>
                     <button type="submit" class="btn btn-success w-100">Login</button>
                 </form>
