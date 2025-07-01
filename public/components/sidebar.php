@@ -49,7 +49,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </ul>
 
         <!-- Footer Section -->
-        <div class="footer mt-auto">
+        <div class="sidebar-footer mt-auto">
             <a href="/servicehub/logout.php" class="nav-link text-purple">
                 <i class="fa fa-sign-out-alt text-center d-block"></i>
                 <span class="d-block">Logout</span>

@@ -328,7 +328,7 @@ p {
   background-color: #f3e5f5; /* Light purple background */
 }
 
-.footer {
+.sidebar-footer {
   margin-top: auto;
   padding-top: var(--spacing-medium);
 }
