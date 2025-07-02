@@ -17,7 +17,7 @@
 
   /* === Typography === */
   --font-family: "Lato", sans-serif;
-  --font-size-base: 16px;
+  --font-size-base: 14px;
   --font-size-heading: 24px;
 
   /* === Spacing === */
@@ -198,20 +198,24 @@ body {
 }
 
 /* === Reusable Button Styles === */
-.primary-btn {
-  height: var(--button-height);
+.primary-btn, .secondary-btn {
   padding: var(--button-padding);
   border: none;
   border-radius: var(--border-radius);
-  font-size: var(--font-size-base);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s;
 }
 
 .primary-btn {
   background-color: var(--primary-color);
   color: #fff;
+}
+
+.secondary-btn {
+  border: 1px solid var(--primary-color);
+  background-color: transparent!important;
+  color: var(--primary-color);
 }
 
 .primary-btn:hover {
@@ -411,10 +415,12 @@ p {
   padding: 20px;
   transition: box-shadow 0.3s;
   background: #fff;
+  box-shadow: 0px 85.258px 181.4px 0px rgba(21, 21, 21, 0.15);
+  border: none;
 }
 
-.card-service:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.card-service h5 {
+  color: var(--primary-color);
 }
 
 .quote-box {

@@ -50,7 +50,7 @@ function set_title(string $title = 'ServiceHub')
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="#">Service<span class="text-success">Hub</span></a>
+            <a class="navbar-brand fw-bold text-primary" href="#">Service<span class="accent-color">Hub</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -63,7 +63,7 @@ function set_title(string $title = 'ServiceHub')
                     <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                 </ul>
                 <div class="d-flex ms-3">
-                    <a class="btn btn-outline-primary me-2" href="login.php">Log In</a>
+                    <a class="btn secondary-btn me-2" href="login.php">Log In</a>
                     <a class="btn primary-btn" href="register.php">Sign Up</a>
                 </div>
             </div>
@@ -76,8 +76,8 @@ function set_title(string $title = 'ServiceHub')
             <h1 class="display-5 fw-bold">Effortless Services,<br>Every Step of the Way.</h1>
             <p class="lead">Find trusted service providers near you and manage your bookings from one platform.</p>
             <div class="mt-4">
-                <a class="btn btn-success me-2" href="#">Get a Free Quote</a>
-                <a class="btn btn-outline-light" href="#">Learn More</a>
+                <a class="btn primary-btn me-2" href="#">Get a Free Quote</a>
+                <a class="btn secondary-btn" href="#">Learn More</a>
             </div>
         </div>
     </section>
@@ -85,7 +85,7 @@ function set_title(string $title = 'ServiceHub')
     <!-- Services Section -->
     <section class="py-5">
         <div class="container text-center">
-            <h2 class="fw-bold mb-4">Three Main <span class="text-primary">Services</span></h2>
+            <h2 class="fw-bold mb-4">Three Main <span class="accent-color">Services</span></h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card-service h-100">
@@ -151,7 +151,7 @@ function set_title(string $title = 'ServiceHub')
                 <h4 class="fw-bold">Ready to Transform Your Service Experience?</h4>
                 <p>Join thousands who’ve simplified their home and office tasks with ServiceHub.</p>
             </div>
-            <a class="btn btn-success" href="#">Get a Free Quote</a>
+            <a class="btn primary-btn" href="#">Get a Free Quote</a>
         </div>
     </section>
 
