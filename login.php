@@ -18,6 +18,10 @@
                         <input type="password" class="input-field" id="password" name="password" placeholder="Enter your password" required minlength="6">
                     </div>
                     <button type="submit" class="btn primary-btn w-100">Login</button>
+                    <div class="container text-center">
+                  <a href="index.php" class="btn primary-btn w-20" style="float: left";> Go Back</a>
+                </div>
+
                 </form>
                 <div class="text-center mt-3">
                     <span>Don't have an account?</span>

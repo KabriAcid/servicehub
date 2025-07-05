@@ -60,7 +60,7 @@ function set_title(string $title = 'ServiceHub')
                     <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Track</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                 </ul>
                 <div class="d-flex ms-3">
                     <a class="btn secondary-btn me-2" href="login.php">Log In</a>
@@ -175,7 +175,7 @@ function set_title(string $title = 'ServiceHub')
                     <h6>Legal</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="policy.php">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
@@ -184,7 +184,8 @@ function set_title(string $title = 'ServiceHub')
                         <li><a href="#">Home Cleaning</a></li>
                         <li><a href="#">Electricians</a></li>
                         <li><a href="#">Plumbing</a></li>
-                        <li><a href="#">Legal Advice</a></li>
+                        <li><a href="">Legal Advice</a></li>
+                        <li><a href="about.php">About Us</a></li>
                     </ul>
                 </div>
             </div>
