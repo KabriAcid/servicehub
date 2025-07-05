@@ -32,7 +32,7 @@ class Page {
                     padding: 0;
                 }
                 header {
-                    background-color: #007bff;
+                    background-color:rgb(22, 57, 94);
                     color: white;
                     padding: 20px;
                     text-align: center;
@@ -46,13 +46,13 @@ class Page {
                     border-radius: 10px;
                 }
                 h1 {
-                    color: #0056b3;
+                    color:rgb(241, 243, 246);
                 }
                 p {
                     line-height: 1.6;
                 }
                 footer {
-                    background-color: #007bff;
+                    background-color:rgb(19, 54, 92);
                     color: white;
                     text-align: center;
                     padding: 10px;
