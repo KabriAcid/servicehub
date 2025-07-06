@@ -1,4 +1,3 @@
-<!-- filepath: c:\xampp\htdocs\servicehub\public\backend\deposit.php -->
 <?php
 require __DIR__ . '/../../config/config.php';
 require __DIR__ . '/../components/header.php';
@@ -41,35 +40,6 @@ require_once __DIR__ . '/../../functions/utilities.php';
             </div>
         </div>
     </div>
-
-    <!-- Flutterwave CDN -->
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <script>
-        document.getElementById('deposit-btn').addEventListener('click', function() {
-            const amount = document.getElementById('amount').value;
-
-            if (!amount || amount <= 0) {
-                alert('Please enter a valid amount.');
-                return;
-            }
-
-            FlutterwaveCheckout({
-                public_key: "<?php echo $_ENV['FLUTTERWAVE_PUBLIC_KEY']; ?>",
-                tx_ref: "TX_" + Math.random().toString(36).substring(2, 15),
-                amount: amount,
-                currency: "NGN",
-                redirect_url: "../../api/process-deposit.php",
-                customer: {
-                    email: "<?php echo $user['email']; ?>",
-                    name: "<?php echo $user['name']; ?>"
-                },
-                customizations: {
-                    title: "ServiceHub Deposit",
-                    description: "Deposit funds into your ServiceHub wallet."
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

@@ -25,7 +25,7 @@ require __DIR__ . '/../components/header.php';
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">
                                 <div class="card-icon accent-color mb-2"><i class="fa-solid fa-wallet"></i></div>
-                                <h5 class="card-title">Earnings</h5>
+                                <h5 class="card-title">Wallet</h5>
                                 <p class="card-text fs-4">
                                     ₦<?php echo number_format(getWalletBalance($pdo, $user['id']), 2); ?>
                                 </p>
