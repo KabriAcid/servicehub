@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config/config.php';
 if (isset($_GET['transaction_id'])) {
     try {
         // Flutterwave API credentials
-        $secret_key = getenv('FLUTTERWAVE_SECRET_KEY');
+        $secret_key = $_ENV['FLUTTERWAVE_SECRET_KEY']; // Correct array syntax for $_ENV
         $transaction_id = $_GET['transaction_id'];
 
         // Initialize cURL
@@ -36,7 +36,7 @@ if (isset($_GET['transaction_id'])) {
         if (isset($response_data['status']) && $response_data['status'] === 'success') {
             $amount = $response_data['data']['amount'];
             $tx_ref = $response_data['data']['tx_ref'];
-            $user_id = $current_user['id']; // Assuming the logged-in user's ID is stored in `$current_user`
+            $user_id = $user['id']; // Use `$user` for the logged-in user's ID
 
             // Update wallet balance
             $stmt = $pdo->prepare("UPDATE wallets SET balance = balance + ? WHERE user_id = ?");
