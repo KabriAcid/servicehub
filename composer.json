@@ -3,7 +3,7 @@
     "vlucas/phpdotenv": "^5.6",
     "plasticbrain/php-flash-messages": "^1.0",
     "phpmailer/phpmailer": "^6.9",
-    "flutterwavedev/flutterwave-v3": "*"
+    "flutterwavedev/flutterwave-v3": "^1.1"
   },
   "config": {
     "platform": {
