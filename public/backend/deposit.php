@@ -40,6 +40,41 @@ require_once __DIR__ . '/../../functions/utilities.php';
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('deposit-btn').addEventListener('click', function() {
+            const amount = document.getElementById('amount').value;
+
+            if (!amount || amount < 100) {
+                alert('Please enter a valid amount (minimum ₦100).');
+                return;
+            }
+
+            // Send the deposit request to the backend
+            fetch('/servicehub/api/process-deposit.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        amount
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirect to the payment page
+                        window.location.href = data.payment_link;
+                    } else {
+                        alert(data.message || 'An error occurred while processing your deposit.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while processing your deposit.');
+                });
+        });
+    </script>
 </body>
 
 </html>
