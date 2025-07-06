@@ -54,14 +54,14 @@ require_once __DIR__ . '/../../functions/utilities.php';
 
             // Initialize Flutterwave payment
             FlutterwaveCheckout({
-                public_key: "<?php echo getenv('FLUTTERWAVE_PUBLIC_KEY'); ?>", // Replace with your public key
+                public_key: "<?php echo $_ENV['FLUTTERWAVE_PUBLIC_KEY']; ?>", // Replace with your public key
                 tx_ref: "TX_" + Math.random().toString(36).substr(2, 9), // Unique transaction reference
                 amount: amount,
                 currency: "NGN",
-                redirect_url: "<?php echo getenv('APP_BASE_URL'); ?>api/verify-deposit.php", // Redirect URL
+                redirect_url: "<?php echo $_ENV['APP_BASE_URL']; ?>api/verify-deposit.php", // Redirect URL
                 customer: {
-                    email: "<?php echo $current_user['email']; ?>", // Assuming the logged-in user's email is stored in `$current_user`
-                    name: "<?php echo $current_user['name']; ?>" // Assuming the logged-in user's name is stored in `$current_user`
+                    email: "<?php echo $user['email']; ?>", // Using `$user` for the logged-in user's email
+                    name: "<?php echo $user['name']; ?>" // Using `$user` for the logged-in user's name
                 },
                 payment_options: "card,banktransfer",
                 onclose: function() {
