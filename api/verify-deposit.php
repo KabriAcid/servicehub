@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config/config.php';
 if (isset($_GET['transaction_id'])) {
     try {
         // Flutterwave API credentials
-        $secret_key = $_ENV('FLUTTERWAVE_SECRET_KEY');
+        $secret_key = getenv('FLUTTERWAVE_SECRET_KEY');
         $transaction_id = $_GET['transaction_id'];
 
         // Initialize cURL
