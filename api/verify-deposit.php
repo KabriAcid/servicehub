@@ -32,6 +32,9 @@ if (isset($_GET['transaction_id'])) {
         // Decode the response
         $response_data = json_decode($response, true);
 
+        // Log the response for debugging
+        error_log("Flutterwave API Response: " . print_r($response_data, true));
+
         // Handle the response
         if (isset($response_data['status']) && $response_data['status'] === 'success') {
             $amount = $response_data['data']['amount'];
@@ -40,11 +43,19 @@ if (isset($_GET['transaction_id'])) {
 
             // Update wallet balance
             $stmt = $pdo->prepare("UPDATE wallets SET balance = balance + ? WHERE user_id = ?");
-            $stmt->execute([$amount, $user_id]);
+            $result = $stmt->execute([$amount, $user_id]);
+
+            if (!$result) {
+                error_log("Failed to update wallet: " . print_r($stmt->errorInfo(), true));
+            }
 
             // Log the transaction
             $stmt = $pdo->prepare("INSERT INTO transactions (user_id, tx_ref, amount, status, created_at) VALUES (?, ?, ?, ?, NOW())");
-            $stmt->execute([$user_id, $tx_ref, $amount, 'completed']);
+            $result = $stmt->execute([$user_id, $tx_ref, $amount, 'completed']);
+
+            if (!$result) {
+                error_log("Failed to insert transaction: " . print_r($stmt->errorInfo(), true));
+            }
 
             $_SESSION['success'] = "Deposit successful!";
             header("Location: ../public/backend/deposit.php");
