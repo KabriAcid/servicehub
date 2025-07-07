@@ -1,13 +1,12 @@
 <?php require __DIR__ . '/includes/main-header.php'; ?>
 
 <body>
-    <?php require __DIR__ . '/includes/navbar.php'; ?>
     <div class="container-fluid py-5 mt-5">
         <div class="container text-center">
             <h1 class="display-4 fw-bold accent-color">Welcome to Our Service</h1>
             <p class="lead">Create your account to get started</p>
         </div>
-        <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="container d-flex align-items-center justify-content-center">
             <div class="card shadow-lg p-4" style="max-width: 800px; width: 100%;">
                 <!-- Alert Section -->
                 <?php if (isset($_SESSION['error'])) { ?>

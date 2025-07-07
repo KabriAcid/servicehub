@@ -19,6 +19,8 @@ function set_title(string $title = 'ServiceHub')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap-utilities.min.css">
 
     <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet">
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet">
 
@@ -73,11 +75,10 @@ function set_title(string $title = 'ServiceHub')
     <!-- Hero -->
     <section class="hero d-flex align-items-center">
         <div class="container hero-content text-center">
-            <h1 class="display-5 fw-bold">Effortless Services,<br>Every Step of the Way.</h1>
-            <p class="lead">Find trusted service providers near you and manage your bookings from one platform.</p>
+            <h1 class="display-1 fw-bold text-white">Effortless Services,<br>Every Step of the Way.</h1>
+            <p class="lead text-white">Find trusted service providers near you and manage your bookings from one platform.</p>
             <div class="mt-4">
                 <a class="btn primary-btn me-2" href="#">Get a Free Quote</a>
-                <a class="btn secondary-btn" href="#">Learn More</a>
             </div>
         </div>
     </section>
@@ -87,27 +88,41 @@ function set_title(string $title = 'ServiceHub')
         <div class="container text-center">
             <h2 class="fw-bold mb-4">Three Main <span class="accent-color">Services</span></h2>
             <div class="row g-4">
+
                 <div class="col-md-4">
-                    <div class="card-service h-100">
-                        <h5>On-Demand Professionals</h5>
+                    <div class="card-service h-100 p-4 shadow-sm rounded">
+                        <div class="mb-3 text-accent fs-1">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h5 class="fw-semibold">On-Demand Professionals</h5>
                         <p>Hire verified providers near you in seconds and get the job done.</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <div class="card-service h-100">
-                        <h5>Live Booking Updates</h5>
+                    <div class="card-service h-100 p-4 shadow-sm rounded">
+                        <div class="mb-3 text-accent fs-1">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h5 class="fw-semibold">Live Booking Updates</h5>
                         <p>Track booking status in real time and manage your active jobs easily.</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <div class="card-service h-100">
-                        <h5>Insights and Reviews</h5>
+                    <div class="card-service h-100 p-4 shadow-sm rounded">
+                        <div class="mb-3 text-accent fs-1">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h5 class="fw-semibold">Insights and Reviews</h5>
                         <p>Make decisions using verified user reviews and performance ratings.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+
 
     <!-- Quote Section -->
     <section class="py-5 bg-light">
