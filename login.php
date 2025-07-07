@@ -13,7 +13,7 @@ require __DIR__ . '/includes/main-header.php';
             <div class="card shadow-lg p-4" style="max-width: 600px; width: 100%;">
 
                 <?php if (isset($_SESSION['login_error'])): ?>
-                    <div class="alert alert-danger">
+                    <div class="alert text-center text-white fw-bold alert-danger">
                         <?= htmlspecialchars($_SESSION['login_error']) ?>
                     </div>
                     <?php unset($_SESSION['login_error']); ?>

@@ -9,15 +9,30 @@
  */
 function getUserInfo($pdo, $user_id)
 {
-    try {
-        $query = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-        $query->execute([$user_id]);
-        return $query->fetch();
-    } catch (PDOException $e) {
-        error_log("Error fetching user info: " . $e->getMessage());
-        return null;
+    $tables = [
+        'clients' => 'client',
+        'providers' => 'provider',
+        'admin' => 'admin'
+    ];
+
+    foreach ($tables as $table => $role) {
+        try {
+            $stmt = $pdo->prepare("SELECT *, '$role' AS role FROM {$table} WHERE id = ?");
+            $stmt->execute([$user_id]);
+            $user = $stmt->fetch();
+
+            if ($user) {
+                return $user;  // Includes 'role' field
+            }
+        } catch (PDOException $e) {
+            error_log("Error fetching user info from {$table}: " . $e->getMessage());
+            continue;  // Try next table
+        }
     }
+
+    return null;  // No match found in any table
 }
+
 
 /**
  * Get wallet balance for a user.
@@ -116,46 +131,6 @@ function getTotalRevenue($pdo, $provider_id)
     } catch (PDOException $e) {
         error_log("Error fetching total revenue: " . $e->getMessage());
         return 0.00;
-    }
-}
-
-/**
- * Check if a user is an admin.
- *
- * @param PDO $pdo
- * @param int $user_id
- * @return bool
- */
-function isAdmin($pdo, $user_id)
-{
-    try {
-        $query = $pdo->prepare("SELECT role FROM users WHERE id = ?");
-        $query->execute([$user_id]);
-        $result = $query->fetch();
-        return $result && $result['role'] === 'admin';
-    } catch (PDOException $e) {
-        error_log("Error checking admin status: " . $e->getMessage());
-        return false;
-    }
-}
-
-/**
- * Check if a user exists by email.
- *
- * @param PDO $pdo
- * @param string $email
- * @return bool
- */
-function userExists($pdo, $email)
-{
-    try {
-        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM users WHERE email = ?");
-        $query->execute([$email]);
-        $result = $query->fetch();
-        return $result && $result['total'] > 0;
-    } catch (PDOException $e) {
-        error_log("Error checking user existence: " . $e->getMessage());
-        return false;
     }
 }
 

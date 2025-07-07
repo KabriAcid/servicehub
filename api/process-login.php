@@ -45,17 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
 
-        switch ($role) {
-            case 'client':
-                header("Location: ../public/client/dashboard.php");
-                break;
-            case 'provider':
-                header("Location: ../public/provider/dashboard.php");
-                break;
-            case 'admin':
-                header("Location: ../public/admin/dashboard.php");
-                break;
-        }
+        header("Location: ../public/backend/dashboard.php");
         exit;
     } else {
         $_SESSION['login_error'] = 'Invalid email or password.';
