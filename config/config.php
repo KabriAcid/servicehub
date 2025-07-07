@@ -1,13 +1,13 @@
 <?php
 session_start();
 require_once __DIR__ . '/database.php';
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['role'])) {
+
+if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit;
 }
 
 $user_id = $_SESSION['user_id'];
-$user_role = $_SESSION['role'];
 
 try {
     switch ($user_role) {
