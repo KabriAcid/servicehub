@@ -25,7 +25,7 @@ if (!$provider) {
 
 // Fetch user details (optional, if you want to show user-specific information)
 $user_provider = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-$user_provider->execute([$provider['user_id']]);
+$user_provider->execute([$provider['id']]);
 $user_provider = $user_provider->fetch();
 ?>
 

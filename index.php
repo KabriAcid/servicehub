@@ -140,19 +140,19 @@ function set_title(string $title = 'ServiceHub')
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h4 class="fw-bold">15,000+</h4>
+                    <h4 class="fw-bold display-6 accent-color">15,000+</h4>
                     <p>Jobs Completed</p>
                 </div>
                 <div class="col">
-                    <h4 class="fw-bold">3,000+</h4>
+                    <h4 class="fw-bold display-6 accent-color">3,000+</h4>
                     <p>Verified Professionals</p>
                 </div>
                 <div class="col">
-                    <h4 class="fw-bold">99%</h4>
+                    <h4 class="fw-bold display-6 accent-color">99%</h4>
                     <p>Positive Reviews</p>
                 </div>
                 <div class="col">
-                    <h4 class="fw-bold">250+</h4>
+                    <h4 class="fw-bold display-6 accent-color">250+</h4>
                     <p>Cities Served</p>
                 </div>
             </div>
@@ -166,7 +166,7 @@ function set_title(string $title = 'ServiceHub')
                 <h4 class="fw-bold">Ready to Transform Your Service Experience?</h4>
                 <p>Join thousands who’ve simplified their home and office tasks with ServiceHub.</p>
             </div>
-            <a class="btn primary-btn" href="#">Get a Free Quote</a>
+            <a class="btn primary-btn" href="#">Contact Us</a>
         </div>
     </section>
 
@@ -175,11 +175,11 @@ function set_title(string $title = 'ServiceHub')
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h5>ServiceHub</h5>
+                    <h5 class="accent-color">ServiceHub</h5>
                     <p>We connect you to verified professionals for all your service needs.</p>
                 </div>
                 <div class="col-md-3">
-                    <h6>Support</h6>
+                    <h6 class="accent-color">Support</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Getting Started</a></li>
                         <li><a href="#">FAQs</a></li>
@@ -187,14 +187,14 @@ function set_title(string $title = 'ServiceHub')
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>Legal</h6>
+                    <h6 class="accent-color">Legal</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Terms & Conditions</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>Services</h6>
+                    <h6 class="accent-color">Services</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Home Cleaning</a></li>
                         <li><a href="#">Electricians</a></li>
