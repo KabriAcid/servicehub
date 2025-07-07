@@ -19,6 +19,7 @@ function set_title(string $title = 'ServiceHub')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap-utilities.min.css">
 
     <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet">
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet">
 
@@ -48,7 +49,7 @@ function set_title(string $title = 'ServiceHub')
 
 <body>
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container">
             <a class="navbar-brand fw-bold text-primary" href="#">Service<span class="accent-color">Hub</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
@@ -73,11 +74,10 @@ function set_title(string $title = 'ServiceHub')
     <!-- Hero -->
     <section class="hero d-flex align-items-center">
         <div class="container hero-content text-center">
-            <h1 class="display-5 fw-bold">Effortless Services,<br>Every Step of the Way.</h1>
-            <p class="lead">Find trusted service providers near you and manage your bookings from one platform.</p>
+            <h1 class="display-1 fw-bold text-white">Effortless Services,<br>Every Step of the Way.</h1>
+            <p class="lead text-white">Find trusted service providers near you and manage your bookings from one platform.</p>
             <div class="mt-4">
                 <a class="btn primary-btn me-2" href="#">Get a Free Quote</a>
-                <a class="btn secondary-btn" href="#">Learn More</a>
             </div>
         </div>
     </section>
@@ -87,27 +87,41 @@ function set_title(string $title = 'ServiceHub')
         <div class="container text-center">
             <h2 class="fw-bold mb-4">Three Main <span class="accent-color">Services</span></h2>
             <div class="row g-4">
+
                 <div class="col-md-4">
-                    <div class="card-service h-100">
-                        <h5>On-Demand Professionals</h5>
+                    <div class="card-service h-100 p-4 shadow rounded">
+                        <div class="mb-3 text-accent fs-1">
+                            <i class="fa fa-user-check"></i>
+                        </div>
+                        <h5 class="fw-semibold">On-Demand Professionals</h5>
                         <p>Hire verified providers near you in seconds and get the job done.</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <div class="card-service h-100">
-                        <h5>Live Booking Updates</h5>
+                    <div class="card-service h-100 p-4 shadow rounded">
+                        <div class="mb-3 text-accent fs-1">
+                            <i class="fa fa-sync-alt"></i>
+                        </div>
+                        <h5 class="fw-semibold">Live Booking Updates</h5>
                         <p>Track booking status in real time and manage your active jobs easily.</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <div class="card-service h-100">
-                        <h5>Insights and Reviews</h5>
+                    <div class="card-service h-100 p-4 shadow rounded">
+                        <div class="mb-3 text-accent fs-1">
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <h5 class="fw-semibold">Insights and Reviews</h5>
                         <p>Make decisions using verified user reviews and performance ratings.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+
 
     <!-- Quote Section -->
     <section class="py-5 bg-light">
@@ -116,7 +130,7 @@ function set_title(string $title = 'ServiceHub')
                 <h5 class="fw-bold">Your Comfort, Our Top Priority</h5>
                 <p>We ensure every provider on ServiceHub is pre-screened, reviewed, and ready to deliver top-notch service in your area.</p>
             </div>
-            <img src="https://via.placeholder.com/220x120" alt="Service Vehicle" class="img-fluid rounded shadow">
+            <img src="/servicehub/public/assets/img/profession" alt="Service Vehicle" class="img-fluid rounded shadow">
         </div>
     </section>
 
@@ -125,19 +139,19 @@ function set_title(string $title = 'ServiceHub')
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h4 class="fw-bold">15,000+</h4>
+                    <h3 class="fw-bold accent-color">15,000+</h3>
                     <p>Jobs Completed</p>
                 </div>
                 <div class="col">
-                    <h4 class="fw-bold">3,000+</h4>
+                    <h3 class="fw-bold accent-color">3,000+</h3>
                     <p>Verified Professionals</p>
                 </div>
                 <div class="col">
-                    <h4 class="fw-bold">99%</h4>
+                    <h3 class="fw-bold accent-color">99%</h3>
                     <p>Positive Reviews</p>
                 </div>
                 <div class="col">
-                    <h4 class="fw-bold">250+</h4>
+                    <h3 class="fw-bold accent-color">250+</h3>
                     <p>Cities Served</p>
                 </div>
             </div>
@@ -151,7 +165,7 @@ function set_title(string $title = 'ServiceHub')
                 <h4 class="fw-bold">Ready to Transform Your Service Experience?</h4>
                 <p>Join thousands who’ve simplified their home and office tasks with ServiceHub.</p>
             </div>
-            <a class="btn primary-btn" href="#">Get a Free Quote</a>
+            <a class="btn primary-btn" href="#">Contact Us</a>
         </div>
     </section>
 
@@ -160,11 +174,11 @@ function set_title(string $title = 'ServiceHub')
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h5>ServiceHub</h5>
+                    <h5 class="accent-color">ServiceHub</h5>
                     <p>We connect you to verified professionals for all your service needs.</p>
                 </div>
                 <div class="col-md-3">
-                    <h6>Support</h6>
+                    <h6 class="accent-color">Support</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Getting Started</a></li>
                         <li><a href="#">FAQs</a></li>
@@ -172,14 +186,14 @@ function set_title(string $title = 'ServiceHub')
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>Legal</h6>
+                    <h6 class="accent-color">Legal</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Terms & Conditions</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>Services</h6>
+                    <h6 class="accent-color">Services</h6>
                     <ul class="list-unstyled">
                         <li><a href="#">Home Cleaning</a></li>
                         <li><a href="#">Electricians</a></li>

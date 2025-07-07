@@ -1,4 +1,7 @@
-<?php require __DIR__ . '/includes/main-header.php'; ?>
+<?php
+session_start();
+require __DIR__ . '/includes/main-header.php';
+?>
 
 <body>
     <div class="container-fluid py-5 mt-5">
@@ -8,6 +11,14 @@
         </div>
         <div class="container d-flex align-items-center justify-content-center mt-5">
             <div class="card shadow-lg p-4" style="max-width: 600px; width: 100%;">
+
+                <?php if (isset($_SESSION['login_error'])): ?>
+                    <div class="alert alert-danger">
+                        <?= htmlspecialchars($_SESSION['login_error']) ?>
+                    </div>
+                    <?php unset($_SESSION['login_error']); ?>
+                <?php endif; ?>
+
                 <form action="api/process-login.php" method="POST" autocomplete="off">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
@@ -19,6 +30,7 @@
                     </div>
                     <button type="submit" class="btn primary-btn w-100">Login</button>
                 </form>
+
                 <div class="text-center mt-3">
                     <span>Don't have an account?</span>
                     <a href="register.php" class="fw-bold">Register</a>
