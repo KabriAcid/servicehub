@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../config/auth.php';
 require __DIR__ . '/../../functions/utilities.php';
 require __DIR__ . '/../components/header.php';
 ?>

@@ -7,6 +7,7 @@ function clean_input($data)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $email = clean_input($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -19,35 +20,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = null;
     $role = null;
 
-    // Check clients
-    $stmt = $pdo->prepare("SELECT * FROM clients WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
-    $role = $user ? 'client' : null;
-
-    // Check providers
-    if (!$user) {
-        $stmt = $pdo->prepare("SELECT * FROM providers WHERE email = ?");
+    try {
+        // First: Check in users table (clients & providers)
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
-        $role = $user ? 'provider' : null;
-    }
 
-    // Check admin
-    if (!$user) {
-        $stmt = $pdo->prepare("SELECT * FROM admin WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
-        $role = $user ? 'admin' : null;
-    }
+        if ($user) {
+            $role = $user['role'];
+        } else {
+            // Second: Check in admin table
+            $stmt = $pdo->prepare("SELECT * FROM admin WHERE email = ?");
+            $stmt->execute([$email]);
+            $adminUser = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
+            if ($adminUser) {
+                $user = $adminUser;
+                $role = 'admin';
+            }
+        }
 
-        header("Location: ../public/backend/dashboard.php");
-        exit;
-    } else {
-        $_SESSION['login_error'] = 'Invalid email or password.';
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $role;
+
+            error_log("Login success: ID {$user['id']} | Role: {$role}");
+            header("Location: ../public/backend/dashboard.php");
+            exit;
+        } else {
+            $_SESSION['login_error'] = 'Invalid email or password.';
+            error_log("Login error: Invalid credentials for email {$email}");
+            header("Location: ../login.php");
+            exit;
+        }
+    } catch (PDOException $e) {
+        error_log("Login error: " . $e->getMessage());
+        $_SESSION['login_error'] = 'Something went wrong. Please try again.';
         header("Location: ../login.php");
         exit;
     }
