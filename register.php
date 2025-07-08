@@ -1,4 +1,7 @@
-<?php require __DIR__ . '/includes/main-header.php'; ?>
+<?php
+session_start();
+require __DIR__ . '/includes/main-header.php';
+?>
 
 <body>
     <div class="container-fluid py-5 mt-5">
@@ -10,17 +13,15 @@
             <div class="card shadow-lg p-4" style="max-width: 800px; width: 100%;">
                 <!-- Alert Section -->
                 <?php if (isset($_SESSION['error'])) { ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="alert text-center text-white fw-bold alert-danger" role="alert">
                         <?php echo $_SESSION['error'];
                         unset($_SESSION['error']); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php } ?>
                 <?php if (isset($_SESSION['success'])) { ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success text-center text-white fw-bold" role="alert">
                         <?php echo $_SESSION['success'];
                         unset($_SESSION['success']); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php } ?>
                 <form action="api/process-register.php" method="POST" autocomplete="off">

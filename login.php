@@ -18,6 +18,12 @@ require __DIR__ . '/includes/main-header.php';
                     </div>
                     <?php unset($_SESSION['login_error']); ?>
                 <?php endif; ?>
+                <?php if (isset($_SESSION['success'])) { ?>
+                    <div class="alert alert-success text-center text-white fw-bold" role="alert">
+                        <?php echo $_SESSION['success'];
+                        unset($_SESSION['success']); ?>
+                    </div>
+                <?php } ?>
 
                 <form action="api/process-login.php" method="POST" autocomplete="off">
                     <div class="mb-3">

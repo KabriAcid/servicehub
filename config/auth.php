@@ -1,7 +1,7 @@
 <?php
-if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     $user_id = $_SESSION['user_id'] ?? null;
-    $user_role = $_SESSION['user_role'] ?? null;
+    $user_role = $_SESSION['role'] ?? null;
 
     // Select user from the database
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");

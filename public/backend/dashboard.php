@@ -12,7 +12,7 @@ require __DIR__ . '/../components/header.php';
             <?php require_once __DIR__ . '/../components/dashboard-navbar.php'; ?>
             <div class="container-fluid">
                 <div class="row g-4 my-3">
-                    <?php if ($user['role'] == 'client') { ?>
+                    <?php if ($_SESSION['role'] == 'client') { ?>
                         <!-- Customer Dashboard -->
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">
@@ -39,7 +39,7 @@ require __DIR__ . '/../components/header.php';
                                 <p class="card-text fs-4">--</p> <!-- Ratings for customers can be added later -->
                             </div>
                         </div>
-                    <?php } elseif ($user['role'] == 'provider') { ?>
+                    <?php } elseif ($_SESSION['role'] == 'provider') { ?>
                         <!-- Provider Dashboard -->
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">
@@ -68,7 +68,7 @@ require __DIR__ . '/../components/header.php';
                                 </p>
                             </div>
                         </div>
-                    <?php } elseif ($user['role'] == 'admin') { ?>
+                    <?php } elseif ($_SESSION['role'] == 'admin') { ?>
                         <!-- Admin Dashboard -->
                         <div class="col-md-4">
                             <div class="card shadow text-center p-4">

@@ -1,37 +1,53 @@
 <?php
+function getUserInfo($pdo, $user_id)
+{
+    try {
+        // First check in 'users' table
+        $stmt = $pdo->prepare("SELECT *, role FROM users WHERE id = ?");
+        $stmt->execute([$user_id]);
+        $user = $stmt->fetch();
+
+        if ($user) {
+            $user['role'] = $user['role'] ?? 'user'; // Just in case role is missing
+            return $user;
+        }
+
+        // If not found, check in 'admin' table
+        $stmt = $pdo->prepare("SELECT *, 'admin' AS role FROM admin WHERE id = ?");
+        $stmt->execute([$user_id]);
+        $admin = $stmt->fetch();
+
+        if ($admin) {
+            return $admin;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching user info: " . $e->getMessage());
+    }
+
+    return null; // Not found
+}
 
 /**
- * Get user information by ID.
+ * Retrieve service provider details from providers table by user_id.
  *
  * @param PDO $pdo
  * @param int $user_id
  * @return array|null
  */
-function getUserInfo($pdo, $user_id)
+function getProviderDetails($pdo, $user_id)
 {
-    $tables = [
-        'clients' => 'client',
-        'providers' => 'provider',
-        'admin' => 'admin'
-    ];
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM services WHERE user_id = ?");
+        $stmt->execute([$user_id]);
+        $provider = $stmt->fetch();
 
-    foreach ($tables as $table => $role) {
-        try {
-            $stmt = $pdo->prepare("SELECT *, '$role' AS role FROM {$table} WHERE id = ?");
-            $stmt->execute([$user_id]);
-            $user = $stmt->fetch();
-
-            if ($user) {
-                return $user;  // Includes 'role' field
-            }
-        } catch (PDOException $e) {
-            error_log("Error fetching user info from {$table}: " . $e->getMessage());
-            continue;  // Try next table
-        }
+        return $provider ? $provider : null;
+    } catch (PDOException $e) {
+        error_log("Error fetching provider details: " . $e->getMessage());
+        return null;
     }
-
-    return null;  // No match found in any table
 }
+
 
 
 /**
