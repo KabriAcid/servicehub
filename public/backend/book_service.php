@@ -3,17 +3,17 @@ require __DIR__ . '/../../config/config.php';
 require __DIR__ . '/../components/header.php';
 require_once __DIR__ . '/../../functions/utilities.php';
 
-$provider_id = $_GET['provider_id'] ?? null;
+$service_id = $_GET['service_id'] ?? null;
 
-if (!$provider_id) {
+if (!$service_id) {
     $_SESSION['error'] = "Invalid provider selected.";
     header("Location: /servicehub/public/backend/service_providers.php");
     exit;
 }
 
 // Fetch provider details
-$provider = $pdo->prepare("SELECT * FROM providers WHERE id = ? AND status = 'active'");
-$provider->execute([$provider_id]);
+$provider = $pdo->prepare("SELECT * FROM services WHERE id = ? AND status = 'active'");
+$provider->execute([$service_id]);
 $provider = $provider->fetch();
 
 if (!$provider) {
@@ -31,8 +31,7 @@ if (!$provider) {
                 <h2 class="text-center mb-4">Book Service: <?php echo htmlspecialchars($provider['title']); ?></h2>
                 <div class="card shadow p-4">
                     <form id="booking-form">
-                        <input type="hidden" name="provider_id" value="<?php echo $provider['id']; ?>">
-                        <input type="hidden" name="service_id" value="<?php echo $provider['service_id']; ?>">
+                        <input type="hidden" name="service_id" value="<?php echo $provider['id']; ?>">
                         <div class="mb-3">
                             <label for="scheduled_date" class="form-label">Schedule Date</label>
                             <input type="datetime-local" class="input-field" id="scheduled_date" name="scheduled_date" required>

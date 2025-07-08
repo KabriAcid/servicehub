@@ -13,7 +13,7 @@ if (!$provider_id) {
 }
 
 // Fetch provider details
-$provider = $pdo->prepare("SELECT * FROM providers WHERE id = ? AND status = 'active'");
+$provider = $pdo->prepare("SELECT * FROM services WHERE id = ? AND status = 'active'");
 $provider->execute([$provider_id]);
 $provider = $provider->fetch();
 
@@ -36,7 +36,7 @@ $user_provider = $user_provider->fetch();
             <div class="container-fluid">
                 <h2 class="text-center mb-4"><?php echo htmlspecialchars($provider['title']); ?> Profile</h2>
                 <div class="card shadow p-4">
-                    <h3 class="card-title"><?php echo htmlspecialchars($user_provider['name']); ?></h3>
+                    <h3 class="card-title"><?php echo htmlspecialchars($provider['title']); ?></h3>
                     <p class="card-text"><strong>Description:</strong> <?php echo htmlspecialchars($provider['description']); ?></p>
                     <p class="card-text"><strong>Location:</strong> <?php echo htmlspecialchars($provider['location']); ?></p>
                     <p class="card-text"><strong>Price:</strong> ₦<?php echo number_format($provider['price'], 2); ?></p>
@@ -45,7 +45,7 @@ $user_provider = $user_provider->fetch();
                         <p class="card-text"><strong>Contact:</strong> <?php echo htmlspecialchars($user_provider['email']); ?></p>
                         <p class="card-text"><strong>Phone:</strong> <?php echo htmlspecialchars($user_provider['phone']); ?></p>
                     <?php } ?>
-                    <a href="/servicehub/public/backend/book_service.php?provider_id=<?php echo $provider['id']; ?>" class="btn primary-btn">
+                    <a href="/servicehub/public/backend/book_service.php?service_id=<?php echo $provider['id']; ?>" class="btn primary-btn">
                         Book Service
                     </a>
                 </div>

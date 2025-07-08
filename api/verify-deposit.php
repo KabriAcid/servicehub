@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/auth.php';
 
 if (isset($_GET['transaction_id'])) {
     try {
@@ -39,7 +40,7 @@ if (isset($_GET['transaction_id'])) {
         if (isset($response_data['status']) && $response_data['status'] === 'success') {
             $amount = $response_data['data']['amount'];
             $tx_ref = $response_data['data']['tx_ref'];
-            $user_id = $user['id']; // Use `$user` for the logged-in user's ID
+            $user_id = $user['id'];
 
             // Update wallet balance
             $stmt = $pdo->prepare("UPDATE wallets SET balance = balance + ? WHERE user_id = ?");
@@ -58,7 +59,7 @@ if (isset($_GET['transaction_id'])) {
             }
 
             $_SESSION['success'] = "Deposit successful!";
-            header("Location: ../public/backend/deposit.php");
+            header("Location: ../public/backend/dashboard.php");
             exit;
         } else {
             $_SESSION['error'] = "Payment verification failed: " . ($response_data['message'] ?? 'Unknown error');

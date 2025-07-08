@@ -74,14 +74,14 @@ function getWalletBalance($pdo, $user_id)
  * Get total bookings for a customer.
  *
  * @param PDO $pdo
- * @param int $customer_id
+ * @param int $user_id
  * @return int
  */
-function getTotalBookings($pdo, $customer_id)
+function getTotalBookings($pdo, $user_id)
 {
     try {
-        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM bookings WHERE customer_id = ?");
-        $query->execute([$customer_id]);
+        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM bookings WHERE user_id = ?");
+        $query->execute([$user_id]);
         $result = $query->fetch();
         return $result ? (int)$result['total'] : 0;
     } catch (PDOException $e) {
@@ -100,7 +100,7 @@ function getTotalBookings($pdo, $customer_id)
 function getTotalJobsCompleted($pdo, $provider_id)
 {
     try {
-        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM bookings WHERE provider_id = ? AND status = 'completed'");
+        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM bookings WHERE service_id = ? AND status = 'completed'");
         $query->execute([$provider_id]);
         $result = $query->fetch();
         return $result ? (int)$result['total'] : 0;
@@ -188,32 +188,62 @@ function getServiceDetails($pdo, $service_id)
     }
 }
 
-function getUserBookings($pdo, $customer_id)
+function getUserBookings($pdo, $user_id)
 {
     try {
         // Fetch bookings for the user
-        $query = $pdo->prepare("SELECT * FROM bookings WHERE customer_id = ? ORDER BY scheduled_date DESC");
-        $query->execute([$customer_id]);
+        $query = $pdo->prepare("SELECT * FROM bookings WHERE user_id = ? ORDER BY scheduled_date DESC");
+        $query->execute([$user_id]);
         $bookings = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fetch additional details for each booking
         foreach ($bookings as &$booking) {
-            // Fetch provider details
-            $providerQuery = $pdo->prepare("SELECT title FROM providers WHERE id = ?");
-            $providerQuery->execute([$booking['provider_id']]);
-            $provider = $providerQuery->fetch();
-            $booking['provider_title'] = $provider['title'] ?? 'Unknown Provider';
-
-            // Fetch service details
-            $serviceQuery = $pdo->prepare("SELECT title FROM services WHERE id = ?");
+            // Since service represents both service and provider
+            $serviceQuery = $pdo->prepare("SELECT * FROM services WHERE id = ?");
             $serviceQuery->execute([$booking['service_id']]);
             $service = $serviceQuery->fetch();
+
             $booking['service_title'] = $service['title'] ?? 'Unknown Service';
+            $booking['provider_title'] = $service['title'] ?? 'Unknown Provider';  // Same as service title
+            $booking['amount'] = $service['price'] ?? 0;
         }
 
         return $bookings;
     } catch (PDOException $e) {
         error_log("Error fetching bookings: " . $e->getMessage());
         return [];
+    }
+}
+
+function getServiceWithProvider(PDO $pdo, $service_id)
+{
+    try {
+        // Fetch the service
+        $serviceStmt = $pdo->prepare("SELECT * FROM services WHERE id = ?");
+        $serviceStmt->execute([$service_id]);
+        $service = $serviceStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$service) {
+            error_log("Service with ID $service_id not found.");
+            return null; // Service not found
+        }
+
+        // Fetch the provider (user)
+        $providerStmt = $pdo->prepare("SELECT id, full_name, email, phone, address, city FROM users WHERE id = ? AND is_provider = 1");
+        $providerStmt->execute([$service['user_id']]);
+        $provider = $providerStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$provider) {
+            error_log("Provider for service ID $service_id not found.");
+            return null; // Provider not found
+        }
+
+        // Combine service and provider data
+        return [
+            'service' => $service,
+            'provider' => $provider
+        ];
+    } catch (PDOException $e) {
+        error_log("Error fetching service with provider: " . $e->getMessage());
+        return null;
     }
 }

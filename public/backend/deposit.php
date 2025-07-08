@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../../config/config.php';
+require __DIR__ . '/../../config/auth.php';
 require __DIR__ . '/../components/header.php';
 require_once __DIR__ . '/../../functions/utilities.php';
 ?>
@@ -60,8 +61,8 @@ require_once __DIR__ . '/../../functions/utilities.php';
                 currency: "NGN",
                 redirect_url: "<?php echo $_ENV['APP_BASE_URL']; ?>api/verify-deposit.php", // Redirect URL
                 customer: {
-                    email: "<?php echo $user['email']; ?>", // Using `$user` for the logged-in user's email
-                    name: "<?php echo $user['name']; ?>" // Using `$user` for the logged-in user's name
+                    email: "<?php echo $user['email']; ?>",
+                    name: "<?php echo $user['full_name']; ?>"
                 },
                 payment_options: "card,banktransfer",
                 onclose: function() {

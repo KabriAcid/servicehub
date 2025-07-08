@@ -2,9 +2,9 @@
     <!-- <h4 class="m-0">Welcome, <?php echo htmlspecialchars($user['user_name'] ?? 'User'); ?>!</h4> -->
     <span class="fw-bold">
         <?php
-        if ($_SESSION['role'] == 'client') {
+        if ($user['is_provider'] == 0) {
             echo "Client Dashboard";
-        } elseif ($_SESSION['role'] == 'provider') {
+        } elseif ($user['is_provider'] == 1) {
             echo "Provider Dashboard";
         } elseif ($_SESSION['role'] == 'Admin') {
             echo "Admin Dashboard";
@@ -16,22 +16,16 @@
     <div class="navbar-icons d-flex align-items-center">
         <!-- Deposit Icon -->
         <?php
-        if ($_SESSION['role'] == 'client') {
+        if ($user['is_provider'] == 0) {
         ?>
             <a href="/servicehub/public/backend/deposit.php" class="text-white me-4" title="Deposit">
                 <i class="fa-solid fa-wallet"></i>
             </a>
         <?php
-        } else if ($_SESSION['role'] == 'provider') {
+        } else if ($user['is_provider'] == 1) {
         ?>
             <a href="/servicehub/public/backend/withdraw.php" class="text-white me-4" title="Withdraw">
                 <!-- withdraw icon -->
-                <i class="fa-solid fa-money-bill-wave"></i>
-            </a>
-        <?php
-        } else if ($_SESSION['role'] == 'Admin') {
-        ?>
-            <a href="/servicehub/public/backend/withdraw.php" class="text-white me-4" title="Withdraw">
                 <i class="fa-solid fa-money-bill-wave"></i>
             </a>
         <?php

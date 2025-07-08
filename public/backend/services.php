@@ -1,6 +1,6 @@
-<!-- filepath: c:\xampp\htdocs\servicehub\public\backend\services.php -->
 <?php
 require __DIR__ . '/../../config/config.php';
+require __DIR__ . '/../../config/auth.php';
 require __DIR__ . '/../components/header.php';
 
 // Fetch all available services
@@ -11,12 +11,13 @@ $services = $pdo->query("SELECT * FROM services")->fetchAll(PDO::FETCH_ASSOC);
     <div class="main-container">
         <?php require_once __DIR__ . '/../components/sidebar.php'; ?>
         <div class="dashboard-body">
+            <?php require_once __DIR__ . '/../components/dashboard-navbar.php'; ?>
             <div class="container-fluid mb-4">
                 <h2 class="text-center mb-4">Available Services</h2>
                 <div class="row g-4">
                     <?php foreach ($services as $service) { ?>
                         <div class="col-md-4">
-                            <div class="card shadow text-center p-4" style="min-height: 300px;">
+                            <div class="card shadow text-center p-4" style="height:auto; min-height: 0px;">
                                 <div class="card-icon primary mb-2">
                                     <i class="fa <?php echo htmlspecialchars($service['icon']); ?> fa-3x"></i>
                                 </div>
