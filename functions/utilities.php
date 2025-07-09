@@ -1,23 +1,54 @@
 <?php
+function getUserInfo($pdo, $user_id)
+{
+    try {
+        // First check in 'users' table
+        $stmt = $pdo->prepare("SELECT *, role FROM users WHERE id = ?");
+        $stmt->execute([$user_id]);
+        $user = $stmt->fetch();
+
+        if ($user) {
+            $user['role'] = $user['role'] ?? 'user'; // Just in case role is missing
+            return $user;
+        }
+
+        // If not found, check in 'admin' table
+        $stmt = $pdo->prepare("SELECT *, 'admin' AS role FROM admin WHERE id = ?");
+        $stmt->execute([$user_id]);
+        $admin = $stmt->fetch();
+
+        if ($admin) {
+            return $admin;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching user info: " . $e->getMessage());
+    }
+
+    return null; // Not found
+}
 
 /**
- * Get user information by ID.
+ * Retrieve service provider details from providers table by user_id.
  *
  * @param PDO $pdo
  * @param int $user_id
  * @return array|null
  */
-function getUserInfo($pdo, $user_id)
+function getProviderDetails($pdo, $user_id)
 {
     try {
-        $query = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-        $query->execute([$user_id]);
-        return $query->fetch();
+        $stmt = $pdo->prepare("SELECT * FROM services WHERE user_id = ?");
+        $stmt->execute([$user_id]);
+        $provider = $stmt->fetch();
+
+        return $provider ? $provider : null;
     } catch (PDOException $e) {
-        error_log("Error fetching user info: " . $e->getMessage());
+        error_log("Error fetching provider details: " . $e->getMessage());
         return null;
     }
 }
+
+
 
 /**
  * Get wallet balance for a user.
@@ -116,46 +147,6 @@ function getTotalRevenue($pdo, $provider_id)
     } catch (PDOException $e) {
         error_log("Error fetching total revenue: " . $e->getMessage());
         return 0.00;
-    }
-}
-
-/**
- * Check if a user is an admin.
- *
- * @param PDO $pdo
- * @param int $user_id
- * @return bool
- */
-function isAdmin($pdo, $user_id)
-{
-    try {
-        $query = $pdo->prepare("SELECT role FROM users WHERE id = ?");
-        $query->execute([$user_id]);
-        $result = $query->fetch();
-        return $result && $result['role'] === 'admin';
-    } catch (PDOException $e) {
-        error_log("Error checking admin status: " . $e->getMessage());
-        return false;
-    }
-}
-
-/**
- * Check if a user exists by email.
- *
- * @param PDO $pdo
- * @param string $email
- * @return bool
- */
-function userExists($pdo, $email)
-{
-    try {
-        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM users WHERE email = ?");
-        $query->execute([$email]);
-        $result = $query->fetch();
-        return $result && $result['total'] > 0;
-    } catch (PDOException $e) {
-        error_log("Error checking user existence: " . $e->getMessage());
-        return false;
     }
 }
 

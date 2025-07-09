@@ -45,8 +45,8 @@ if (!$provider) {
                             <label for="payment_method" class="form-label">Payment Method</label>
                             <select class="form-select" id="payment_method" name="payment_method" required>
                                 <option value="wallet" selected>Wallet</option>
-                                <option value="card">Card</option>
-                                <option value="cash">Cash</option>
+                                <option value="card" disabled>Card</option>
+                                <option value="cash" disabled>Cash</option>
                             </select>
                         </div>
                         <button type="button" id="confirm-booking-btn" class="btn primary-btn w-100">Confirm Booking</button>

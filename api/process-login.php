@@ -2,40 +2,61 @@
 session_start();
 require_once __DIR__ . '/../config/database.php';
 
-// Helper function to sanitize input
 function clean_input($data)
 {
     return htmlspecialchars(trim($data));
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = clean_input($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $_SESSION['login_error'] = "Invalid request method.";
+    header("Location: ../login.php");
+    exit;
+}
 
-    // Basic validation
-    if (!$email || !$password) {
-        echo 'Fields are required.';
-        header("Location: ../login.php");
-        exit;
-    }
+$email = clean_input($_POST['email'] ?? '');
+$password = $_POST['password'] ?? '';
 
-    // Fetch user by email
+if (!$email || !$password) {
+    $_SESSION['login_error'] = "Both email and password are required.";
+    header("Location: ../login.php");
+    exit;
+}
+
+try {
+    $user = null;
+    $role = null;
+
+    // Check users table
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
-        // Set session variables
-        $_SESSION['user_id'] = $user['id'];
+    if ($user) {
+        $role = $user['is_provider'] ? 'provider' : 'user';
+    }
 
-        // Redirect to dashboard or homepage
+    // Check admin table if not found
+    if (!$user) {
+        $stmt = $pdo->prepare("SELECT * FROM admin WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+        $role = $user ? 'admin' : null;
+    }
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['role'] = $role;
+
         header("Location: ../public/backend/dashboard.php");
         exit;
     } else {
-        echo "Invalid email or password";
+        $_SESSION['login_error'] = "Invalid email or password.";
+        header("Location: ../login.php");
         exit;
     }
-} else {
+} catch (PDOException $e) {
+    error_log("Login Error: " . $e->getMessage());
+    $_SESSION['login_error'] = "An error occurred. Please try again.";
     header("Location: ../login.php");
     exit;
 }
