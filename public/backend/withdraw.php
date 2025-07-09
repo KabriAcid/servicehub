@@ -35,10 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $update = $pdo->prepare("UPDATE wallets SET balance = ?, last_updated = NOW() WHERE user_id = ?");
         $update->execute([$new_balance, $user_id]);
 
-        // Log withdrawal (optional table: withdrawals)
-        $log = $pdo->prepare("INSERT INTO withdrawals (user_id, amount, status, created_at) VALUES (?, ?, 'pending', NOW())");
-        $log->execute([$user_id, $amount]);
-
         $_SESSION['success'] = "₦" . number_format($amount, 2) . " withdrawal submitted successfully.";
         header("Location: withdraw.php");
         exit;

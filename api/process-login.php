@@ -32,16 +32,16 @@ try {
     $user = $stmt->fetch();
 
     if ($user) {
-        $role = $user['is_provider'] ? 'provider' : 'user';
+        if ($user['role'] == ADMIN) {
+            $role = 'admin';
+        } elseif ($user['role'] == PROVIDER) {
+            $role = 'provider';
+        } else {
+            $role = 'client';
+        }
     }
 
-    // Check admin table if not found
-    if (!$user) {
-        $stmt = $pdo->prepare("SELECT * FROM admin WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
-        $role = $user ? 'admin' : null;
-    }
+
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];

@@ -55,7 +55,7 @@ $provider = getProviderDetails($pdo, $user['id']);
                             </div>
                         </div>
 
-                        <?php if (!empty($user['is_provider'])): ?>
+                        <?php if (!empty($user['role'])): ?>
                             <hr class="my-4">
                             <h5 class="mb-3 fw-bold text-center">Service Provider Details</h5>
                             <div class="row">

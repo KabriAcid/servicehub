@@ -3,6 +3,10 @@
 require __DIR__ . '/../vendor/autoload.php';
 use Dotenv\Dotenv;
 
+define('ADMIN', 0);
+define('PROVIDER',1);
+define('CLIENT',2);
+
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 

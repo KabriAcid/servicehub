@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . '/../config/config.php';
 require __DIR__ . '/../config/auth.php';
-
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -21,7 +20,7 @@ if (!$service_id || !$scheduled_date || !$user_id) {
 }
 
 try {
-    // Fetch service details
+    // Fetch service and provider details
     $stmt = $pdo->prepare("SELECT * FROM services WHERE id = ?");
     $stmt->execute([$service_id]);
     $service = $stmt->fetch();
@@ -31,39 +30,46 @@ try {
         exit;
     }
 
-    $service_price = (float) $service['price'];
+    $amount = (float) $service['price'];
+    $provider_id = (int) $service['user_id'];
 
-    if ($payment_method === 'wallet') {
-        // Fetch user's current wallet balance
-        $walletStmt = $pdo->prepare("SELECT balance FROM wallets WHERE user_id = ?");
-        $walletStmt->execute([$user_id]);
-        $wallet = $walletStmt->fetch();
+    // Fetch user's current wallet balance
+    $stmt = $pdo->prepare("SELECT wallet_balance FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch();
 
-        if (!$wallet) {
-            echo json_encode(['success' => false, 'message' => 'Wallet not found']);
-            exit;
-        }
-
-        $current_balance = (float) $wallet['balance'];
-
-        if ($current_balance < $service_price) {
-            echo json_encode(['success' => false, 'message' => 'Insufficient wallet balance']);
-            exit;
-        }
-
-        // Deduct amount from wallet
-        $new_balance = $current_balance - $service_price;
-        $updateWallet = $pdo->prepare("UPDATE wallets SET balance = ?, last_updated = NOW() WHERE user_id = ?");
-        $updateWallet->execute([$new_balance, $user_id]);
+    if (!$user || $user['wallet_balance'] < $amount) {
+        echo json_encode(['success' => false, 'message' => 'Insufficient wallet balance']);
+        exit;
     }
 
-    // Insert booking
-    $insert = $pdo->prepare("INSERT INTO bookings (user_id, service_id, scheduled_date, additional_notes, payment_method, status, created_at)
-                             VALUES (?, ?, ?, ?, ?, 'pending', NOW())");
-    $insert->execute([$user_id, $service_id, $scheduled_date, $additional_notes, $payment_method]);
+    // Begin Transaction
+    $pdo->beginTransaction();
+
+    // 1. Debit User
+    $new_user_balance = $user['wallet_balance'] - $amount;
+    $stmt = $pdo->prepare("UPDATE users SET wallet_balance = ? WHERE id = ?");
+    $stmt->execute([$new_user_balance, $user_id]);
+
+    // 2. Credit Provider
+    $stmt = $pdo->prepare("SELECT wallet_balance FROM users WHERE id = ?");
+    $stmt->execute([$provider_id]);
+    $provider = $stmt->fetch();
+    $new_provider_balance = ($provider['wallet_balance'] ?? 0) + $amount;
+
+    $stmt = $pdo->prepare("UPDATE users SET wallet_balance = ? WHERE id = ?");
+    $stmt->execute([$new_provider_balance, $provider_id]);
+
+    // 3. Create Booking
+    $stmt = $pdo->prepare("INSERT INTO bookings (user_id, service_id, scheduled_date, additional_notes, payment_method, amount, status, created_at)
+                           VALUES (?, ?, ?, ?, ?, ?, 'pending', NOW())");
+    $stmt->execute([$user_id, $service_id, $scheduled_date, $additional_notes, $payment_method, $amount]);
+
+    $pdo->commit();
 
     echo json_encode(['success' => true, 'message' => 'Booking created and payment processed successfully']);
-} catch (PDOException $e) {
+} catch (Exception $e) {
+    $pdo->rollBack();
     error_log("Booking failed: " . $e->getMessage());
     echo json_encode(['success' => false, 'message' => 'Database error']);
 }

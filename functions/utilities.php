@@ -100,7 +100,7 @@ function getTotalBookings($pdo, $user_id)
 function getTotalJobsCompleted($pdo, $provider_id)
 {
     try {
-        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM bookings WHERE service_id = ? AND status = 'completed'");
+        $query = $pdo->prepare("SELECT COUNT(*) AS total FROM bookings WHERE service_id = ? AND status = 'accepted'");
         $query->execute([$provider_id]);
         $result = $query->fetch();
         return $result ? (int)$result['total'] : 0;
@@ -224,17 +224,17 @@ function getServiceWithProvider(PDO $pdo, $service_id)
 
         if (!$service) {
             error_log("Service with ID $service_id not found.");
-            return null; // Service not found
+            return null;
         }
 
         // Fetch the provider (user)
-        $providerStmt = $pdo->prepare("SELECT id, full_name, email, phone, address, city FROM users WHERE id = ? AND is_provider = 1");
+        $providerStmt = $pdo->prepare("SELECT id, full_name, email, phone, address, city FROM users WHERE id = ? AND role = 1");
         $providerStmt->execute([$service['user_id']]);
         $provider = $providerStmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$provider) {
             error_log("Provider for service ID $service_id not found.");
-            return null; // Provider not found
+            return null;
         }
 
         // Combine service and provider data
@@ -246,4 +246,10 @@ function getServiceWithProvider(PDO $pdo, $service_id)
         error_log("Error fetching service with provider: " . $e->getMessage());
         return null;
     }
+}
+
+
+function shortenText(string $text, int $maxLength = 100): string
+{
+    return strlen($text) > $maxLength ? substr($text, 0, $maxLength) . '...' : $text;
 }

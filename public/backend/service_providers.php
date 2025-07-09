@@ -17,8 +17,8 @@ if (!$service_id) {
 $serviceData = getServiceWithProvider($pdo, $service_id);
 
 if (!$serviceData) {
-    $_SESSION['error'] = "Service or provider not found.";
-    header("Location: /servicehub/public/backend/services.php");
+    echo "Service ID:" . $service_id . "<br>";
+    echo "Provider not found.";
     exit;
 }
 
@@ -49,7 +49,6 @@ $provider = $serviceData['provider'];
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -60,8 +60,8 @@ require __DIR__ . '/includes/main-header.php';
                             <label for="role" class="form-label">Register As</label>
                             <select class="input-field form-select" id="role" name="role" required>
                                 <option value="" disabled selected>Select role</option>
-                                <option value="client">Client</option>
-                                <option value="provider">Service Provider</option>
+                                <option value="2">Client</option>
+                                <option value="1">Service Provider</option>
                             </select>
                         </div>
                     </div>

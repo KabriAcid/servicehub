@@ -51,11 +51,11 @@ try {
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $is_provider = ($role === 'provider') ? 1 : 0;
+    $role = ($role == 1) ? 1 : 2;
 
     // Insert user
-    $stmt = $pdo->prepare("INSERT INTO users (full_name, email, phone, password, address, city, is_provider, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
-    $stmt->execute([$name, $email, $phone, $hashed_password, $address, $city, $is_provider]);
+    $stmt = $pdo->prepare("INSERT INTO users (full_name, email, phone, password, address, city, role, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+    $stmt->execute([$name, $email, $phone, $hashed_password, $address, $city, $role]);
 
     $user_id = $pdo->lastInsertId();
 
